@@ -1,0 +1,128 @@
+export const inventory = [
+  {
+    id: '1',
+    name: 'Arabica Coffee Beans',
+    category: 'coffee',
+    stock: 25,
+    unit: 'kg',
+    unitPrice: 15.50,
+    lastUpdated: '2025-06-10',
+  },
+  {
+    id: '2',
+    name: 'Robusta Coffee Beans',
+    category: 'coffee',
+    stock: 15,
+    unit: 'kg',
+    unitPrice: 12.75,
+    lastUpdated: '2025-06-10',
+  },
+  {
+    id: '3',
+    name: 'Whole Milk',
+    category: 'milk',
+    stock: 45,
+    unit: 'L',
+    unitPrice: 2.25,
+    lastUpdated: '2025-06-14',
+  },
+  {
+    id: '4',
+    name: 'Oat Milk',
+    category: 'milk',
+    stock: 12,
+    unit: 'L',
+    unitPrice: 3.75,
+    lastUpdated: '2025-06-14',
+  },
+  {
+    id: '5',
+    name: 'Almond Milk',
+    category: 'milk',
+    stock: 10,
+    unit: 'L',
+    unitPrice: 3.50,
+    
+    lastUpdated: '2025-06-14',
+  },
+  {
+    id: '6',
+    name: 'Vanilla Syrup',
+    category: 'syrups',
+    stock: 8,
+    unit: 'bottles',
+    unitPrice: 7.25,
+   
+    lastUpdated: '2025-06-05',
+  },
+  {
+    id: '7',
+    name: 'Caramel Syrup',
+    category: 'syrups',
+    stock: 6,
+    unit: 'bottles',
+    unitPrice: 7.25,
+  
+    lastUpdated: '2025-06-05',
+  },
+  {
+    id: '8',
+    name: 'Hazelnut Syrup',
+    category: 'syrups',
+    stock: 4,
+    unit: 'bottles',
+    unitPrice: 7.50,
+    
+    lastUpdated: '2025-06-05',
+  },
+  {
+    id: '9',
+    name: 'Chocolate Syrup',
+    category: 'syrups',
+    stock: 5,
+    unit: 'bottles',
+    unitPrice: 6.75,
+   
+    lastUpdated: '2025-06-05',
+  },
+  {
+    id: '10',
+    name: 'Croissant Dough',
+    category: 'bakery',
+    stock: 30,
+    unit: 'pcs',
+    unitPrice: 1.25,
+    
+    lastUpdated: '2025-06-14',
+  },
+  {
+    id: '11',
+    name: 'To-Go Cups (Small)',
+    category: 'other',
+    stock: 250,
+    unit: 'pcs',
+    unitPrice: 0.15,
+   
+    lastUpdated: '2025-06-01',
+  },
+  {
+    id: '12',
+    name: 'To-Go Cups (Medium)',
+    category: 'other',
+    stock: 200,
+    unit: 'pcs',
+    unitPrice: 0.20,
+
+    lastUpdated: '2025-06-01',
+  },
+  {
+    id: '13',
+    name: 'To-Go Cups (Large)',
+    category: 'other',
+    stock: 120,
+    unit: 'pcs',
+    unitPrice: 0.25,
+   
+    lastUpdated: '2025-06-01',
+  },
+];
