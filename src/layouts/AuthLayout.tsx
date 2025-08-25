@@ -8,8 +8,8 @@ const AuthLayout: React.FC = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <Link to="/" className="flex items-center">
-            <Coffee className="h-10 w-10 text-primary-600" />
-            <span className="ml-2 text-2xl font-semibold text-primary-800">BAOFEI COFFEE SHOP</span>
+            <Coffee className="h-20 w-20 text-primary-600" />
+            <span className="ml-2 text-2xl font-semibold text-primary-800">Brew-Coffee</span>
           </Link>
         </div>
       </div>
