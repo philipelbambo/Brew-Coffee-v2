@@ -100,126 +100,233 @@
         paymentMethod: '',
         paymentScreenshot: null,
     });
-
     // Coffee products - IDs are now strings
     const coffeeProducts: CoffeeProduct[] = [
-        {
+    {
         id: '1',
         name: 'Espresso',
         price: 195.0,
         fullDescription:
-            'A concentrated coffee beverage brewed by forcing a small amount of nearly boiling water under pressure through finely-ground coffee beans. Our espresso is made from premium Arabica beans, delivering an intense flavor with a thick, golden crema on top. Perfect for coffee purists who appreciate the authentic taste of coffee.',
-        image: '/SliderGallery/cup1.png',
+        'A concentrated coffee beverage brewed by forcing a small amount of nearly boiling water under pressure through finely-ground coffee beans. Our espresso is made from premium Arabica beans, delivering an intense flavor with a thick, golden crema on top. Perfect for coffee purists who appreciate the authentic taste of coffee.',
+        image: './images/SliderGallery/cup1.png',
         category: 'Hot',
         ingredients: ['Premium Arabica Beans', 'Hot Water'],
         caffeine: 'High',
         size: '2 oz',
-        },
-        {
+    },
+    {
         id: '2',
         name: 'Americano',
         price: 220.0,
         fullDescription:
-            'A simple yet elegant coffee drink made by diluting espresso with hot water. This creates a drink similar in strength to drip coffee but with a distinctly different flavor profile. Our Americano maintains the rich flavor of espresso while providing a smoother, less intense drinking experience.',
-        image: '/SliderGallery/cup2.png',
+        'A simple yet elegant coffee drink made by diluting espresso with hot water. This creates a drink similar in strength to drip coffee but with a distinctly different flavor profile. Our Americano maintains the rich flavor of espresso while providing a smoother, less intense drinking experience.',
+        image: './images/SliderGallery/cup2.png',
         category: 'Hot',
         ingredients: ['Espresso', 'Hot Water'],
         caffeine: 'High',
         size: '8 oz',
-        },
-        {
+    },
+    {
         id: '3',
         name: 'Cappuccino',
         price: 250.0,
         fullDescription:
-            'A perfect balance of rich espresso, steamed milk, and velvety microfoam. Our cappuccino is crafted with equal parts espresso, steamed milk, and milk foam, creating a harmonious blend that\'s both creamy and bold. Traditionally served in a 6oz cup for the perfect coffee-to-milk ratio.',
-        image: '/SliderGallery/cup3.png',
+        "A perfect balance of rich espresso, steamed milk, and velvety microfoam. Our cappuccino is crafted with equal parts espresso, steamed milk, and milk foam, creating a harmonious blend that's both creamy and bold. Traditionally served in a 6oz cup for the perfect coffee-to-milk ratio.",
+        image: './images/SliderGallery/cup3.png',
         category: 'Hot',
         ingredients: ['Espresso', 'Steamed Milk', 'Milk Foam'],
         caffeine: 'Medium',
         size: '6 oz',
-        },
-        {
+    },
+    {
         id: '4',
         name: 'Latte',
         price: 280.0,
         fullDescription:
-            'A creamy and mild coffee drink made with espresso and steamed milk, topped with a thin layer of milk foam. Our latte is perfect for those who enjoy coffee with a smooth, creamy texture. The milk\'s sweetness balances the espresso\'s intensity, creating a comforting and satisfying beverage.',
-        image: '/SliderGallery/cup4.png',
+        "A creamy and mild coffee drink made with espresso and steamed milk, topped with a thin layer of milk foam. Our latte is perfect for those who enjoy coffee with a smooth, creamy texture. The milk's sweetness balances the espresso's intensity, creating a comforting and satisfying beverage.",
+        image: './images/SliderGallery/cup4.png',
         category: 'Hot',
         ingredients: ['Espresso', 'Steamed Milk', 'Light Foam'],
         caffeine: 'Medium',
         size: '12 oz',
-        },
-        {
+    },
+    {
         id: '5',
         name: 'Mocha',
         price: 310.0,
         fullDescription:
-            'The perfect marriage of coffee and chocolate. Our mocha combines rich espresso with premium chocolate syrup and steamed milk, topped with whipped cream. It\'s like drinking a liquid chocolate bar with the perfect coffee kick. Ideal for those who want to indulge their sweet tooth.',
-        image: '/SliderGallery/cup5.png',
+        "The perfect marriage of coffee and chocolate. Our mocha combines rich espresso with premium chocolate syrup and steamed milk, topped with whipped cream. It's like drinking a liquid chocolate bar with the perfect coffee kick. Ideal for those who want to indulge their sweet tooth.",
+        image: './images/SliderGallery/cup5.png',
         category: 'Hot',
         ingredients: ['Espresso', 'Chocolate Syrup', 'Steamed Milk', 'Whipped Cream'],
         caffeine: 'Medium',
         size: '12 oz',
-        },
-        {
+    },
+    {
         id: '6',
         name: 'Cold Brew',
         price: 240.0,
         fullDescription:
-            'Coffee brewed with cold water over 12-24 hours, resulting in a smooth, less acidic beverage with a naturally sweet flavor. Our cold brew is made from coarsely ground coffee beans steeped in cold water, creating a concentrate that\'s diluted to perfection. Refreshing and energizing.',
-        image: '/SliderGallery/cup6.png',
+        'Coffee brewed with cold water over 12-24 hours, resulting in a smooth, less acidic beverage with a naturally sweet flavor. Our cold brew is made from coarsely ground coffee beans steeped in cold water, creating a concentrate that\'s diluted to perfection. Refreshing and energizing.',
+        image: './images/SliderGallery/cup6.png',
         category: 'Cold',
         ingredients: ['Cold Brew Concentrate', 'Water', 'Ice'],
         caffeine: 'High',
         size: '16 oz',
-        },
-        {
+    },
+    {
         id: '7',
         name: 'Iced Latte',
         price: 295.0,
         fullDescription:
-            'A refreshing take on the classic latte, served over ice. Our iced latte combines rich espresso with cold milk and ice, creating a smooth and creamy beverage perfect for warm days. The cold temperature brings out different flavor notes in the coffee while maintaining that creamy texture you love.',
-        image: '/SliderGallery/cup7.png',
+        'A refreshing take on the classic latte, served over ice. Our iced latte combines rich espresso with cold milk and ice, creating a smooth and creamy beverage perfect for warm days. The cold temperature brings out different flavor notes in the coffee while maintaining that creamy texture you love.',
+        image: './images/SliderGallery/cup7.png',
         category: 'Cold',
         ingredients: ['Espresso', 'Cold Milk', 'Ice'],
         caffeine: 'Medium',
         size: '16 oz',
-        },
-        {
+    },
+    {
         id: '8',
         name: 'Frappé',
         price: 335.0,
         fullDescription:
-            'A decadent blended coffee drink that\'s part beverage, part dessert. Our frappé combines espresso with milk, ice, and sugar, blended to a smooth, frothy consistency and topped with whipped cream. It\'s the ultimate indulgent coffee treat that\'s both refreshing and satisfying.',
-        image: '/SliderGallery/cup8.png',
+        "A decadent blended coffee drink that's part beverage, part dessert. Our frappé combines espresso with milk, ice, and sugar, blended to a smooth, frothy consistency and topped with whipped cream. It's the ultimate indulgent coffee treat that's both refreshing and satisfying.",
+        image: './images/SliderGallery/cup8.png',
         category: 'Cold',
         ingredients: ['Espresso', 'Milk', 'Ice', 'Sugar', 'Whipped Cream'],
         caffeine: 'Medium',
         size: '16 oz',
-        },
+    },
+    {
+        id: '9',
+        name: 'Macchiato',
+        price: 260.0,
+        fullDescription:
+        "An espresso 'stained' with a small amount of foamed milk. Our macchiato retains the bold intensity of espresso while softening it with just a touch of creaminess. Perfect for those who want something strong but with a smooth finish.",
+        image: './images/SliderGallery/cup9.png',
+        category: 'Hot',
+        ingredients: ['Espresso', 'Foamed Milk'],
+        caffeine: 'High',
+        size: '3 oz',
+    },
+    {
+        id: '10',
+        name: 'Flat White',
+        price: 270.0,
+        fullDescription:
+        "A velvety coffee drink made with espresso and microfoam milk. The flat white is smoother than a cappuccino and stronger than a latte, delivering bold flavor with a silky texture. Originating from Australia and New Zealand, it's a modern favorite worldwide.",
+        image: './images/SliderGallery/cup10.png',
+        category: 'Hot',
+        ingredients: ['Espresso', 'Steamed Milk (Microfoam)'],
+        caffeine: 'Medium',
+        size: '6 oz',
+    },
+    {
+        id: '11',
+        name: 'Affogato',
+        price: 330.0,
+        fullDescription:
+        "A delightful Italian dessert-coffee hybrid. Our affogato is a scoop of premium vanilla ice cream 'drowned' in a shot of hot espresso. It's a decadent treat that perfectly balances bitter coffee with sweet, creamy ice cream.",
+        image: './images/SliderGallery/cup11.png',
+        category: 'Dessert',
+        ingredients: ['Espresso', 'Vanilla Ice Cream'],
+        caffeine: 'Medium',
+        size: '5 oz',
+    },
+    {
+        id: '12',
+        name: 'Irish Coffee',
+        price: 395.0,
+        fullDescription:
+        "A warming cocktail of hot coffee, Irish whiskey, sugar, and lightly whipped cream. Our Irish Coffee delivers a rich coffee kick with a boozy twist, topped with a creamy finish. Perfect for special occasions or a cozy evening treat.",
+        image: './images/SliderGallery/cup12.png',
+        category: 'Specialty',
+        ingredients: ['Hot Coffee', 'Irish Whiskey', 'Sugar', 'Whipped Cream'],
+        caffeine: 'Medium',
+        size: '8 oz',
+    },
+    // ✅ New coffees added
+    {
+        id: '13',
+        name: 'Iced Americano',
+        price: 230.0,
+        fullDescription:
+        'A chilled version of the classic Americano. Espresso shots poured over cold water and ice create a refreshing, bold coffee with a crisp finish. Perfect for hot days when you still want that espresso kick.',
+        image: './images/SliderGallery/cup13.png',
+        category: 'Cold',
+        ingredients: ['Espresso', 'Cold Water', 'Ice'],
+        caffeine: 'High',
+        size: '16 oz',
+    },
+    {
+        id: '14',
+        name: 'Cortado',
+        price: 255.0,
+        fullDescription:
+        'A Spanish-style coffee made with equal parts espresso and steamed milk. The cortado softens the acidity of espresso while maintaining its bold flavor, served in a small glass for a balanced experience.',
+        image: './images/SliderGallery/cup14.png',
+        category: 'Hot',
+        ingredients: ['Espresso', 'Steamed Milk'],
+        caffeine: 'High',
+        size: '4 oz',
+    },
+    {
+        id: '15',
+        name: 'Café au Lait',
+        price: 245.0,
+        fullDescription:
+        'A French classic made with equal parts brewed coffee and steamed milk. Our café au lait is smooth, mellow, and comforting, perfect for those who prefer a lighter coffee experience.',
+        image: './images/SliderGallery/cup15.png',
+        category: 'Hot',
+        ingredients: ['Brewed Coffee', 'Steamed Milk'],
+        caffeine: 'Medium',
+        size: '12 oz',
+    },
+    {
+        id: '16',
+        name: 'Turkish Coffee',
+        price: 280.0,
+        fullDescription:
+        'A traditional strong coffee prepared in a cezve (small pot) with very finely ground coffee beans. Served unfiltered, this bold and aromatic drink offers an authentic Middle Eastern coffee experience.',
+        image: './images/SliderGallery/cup16.png',
+        category: 'Specialty',
+        ingredients: ['Finely Ground Coffee', 'Water', 'Sugar (optional)'],
+        caffeine: 'High',
+        size: '3 oz',
+    },
+    {
+        id: '17',
+        name: 'Nitro Cold Brew',
+        price: 360.0,
+        fullDescription:
+        'Cold brew coffee infused with nitrogen gas, giving it a creamy texture and frothy head, similar to draft beer. Served straight from the tap, it’s smooth, rich, and naturally sweet without added sugar.',
+        image: './images/SliderGallery/cup17.png',
+        category: 'Cold',
+        ingredients: ['Cold Brew', 'Nitrogen'],
+        caffeine: 'High',
+        size: '12 oz',
+    },
     ];
-
     // Desserts
     const desserts: Dessert[] = [
         {
         id: 'dessert1',
         name: 'Chocolate Cake',
         price: 150.0,
-        image: '/SliderGallery/bread1.png',
+        image: './images/SliderGallery/bread1.png',
         },
         {
         id: 'dessert2',
         name: 'Croissant',
         price: 95.0,
-        image: '/SliderGallery/bread2.png',
+        image: './images/SliderGallery/bread2.png',
         },
         {
         id: 'dessert3',
         name: 'Cookie',
         price: 60.0,
-        image: '/SliderGallery/bread3.png',
+        image: './images/SliderGallery/bread3.png',
         },
     ];
 

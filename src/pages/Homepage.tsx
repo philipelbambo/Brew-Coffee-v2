@@ -631,7 +631,7 @@
                 Order Your Favorite Dessert
                 </h4>
                 <a
-                href="OrderDesert"
+                href="/dessert"
                 className={`px-6 py-3 rounded-xl font-semibold transition-colors ${
                     coffeeMode
                     ? "bg-amber-100 text-[#4C4B16] hover:bg-amber-200"
@@ -643,8 +643,7 @@
             </div>
             </div>
         </section>
-
-
+        
             {/* Our Gallery */}
             <section id="gallery" className="py-16 overflow-hidden relative z-10">
             <div className="container mx-auto px-4 mb-12">

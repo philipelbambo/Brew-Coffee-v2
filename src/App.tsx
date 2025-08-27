@@ -21,6 +21,7 @@ import Register from './pages/auth/Register';
 import About from './pages/About';
 import Homepage from './pages/Homepage';
 import OrderNow from './pages/OrderNow';
+import DessertOrderingSystem from "./pages/OrderingDesert";
 import NotFound from './pages/NotFound';
 import ProductInventory from './components/inventory/ProductInventory';
 
@@ -51,6 +52,7 @@ function App() {
               
             <Route path ="/" element={<Homepage />} />
             <Route path ="/ordernow" element={<OrderNow />} />
+            <Route path ="/dessert" element={<DessertOrderingSystem />} />
 
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
