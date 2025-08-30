@@ -21,37 +21,34 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Active link background
   const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
-    backgroundColor: isActive ? '#6B6A1F' : 'transparent',
+    backgroundColor: isActive ? '#3A271F' : 'transparent', // darker shade of #4B352A
   });
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const element = e.currentTarget;
-    if (element.style.backgroundColor === 'transparent' || !element.style.backgroundColor) {
-      element.style.backgroundColor = '#5A591B';
+    if (!element.style.backgroundColor || element.style.backgroundColor === 'transparent') {
+      element.style.backgroundColor = '#5C4033'; // lighter hover shade
     }
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const element = e.currentTarget;
-    if (element.style.backgroundColor !== '#6B6A1F') {
+    if (element.style.backgroundColor !== '#3A271F') {
       element.style.backgroundColor = 'transparent';
     }
   };
 
-  const handleSignOut = () => {
-    setShowModal(true); // Show confirmation modal
-  };
+  const handleSignOut = () => setShowModal(true);
 
   const confirmSignOut = () => {
-    setLoading(true); // Show spinner
+    setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setShowModal(false);
-      // Clear session/localStorage if needed
-      // localStorage.removeItem("token");
-      navigate("/login"); // Redirect to login (or homepage)
-    }, 1500); // 1.5 seconds delay before redirect
+      navigate("/login");
+    }, 1500);
   };
 
   return (
@@ -59,154 +56,60 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div 
         className={`border-r transition-all duration-300 flex flex-col 
         ${isOpen ? 'w-60' : 'w-20'}`}
-        style={{ backgroundColor: '#4C4B16', borderColor: '#282D4F' }}
-
+        style={{ backgroundColor: '#4B352A', borderColor: '#4B352A' }}
       >
-        <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#6B6A1F' }}>
-          <Coffee className="h-14 w-14 text-yellow-200" />
+        <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#3A271F' }}>
+          {/* Replaced Coffee Icon with image.png */}
+          <img 
+            src="/images/Gallery1/cup-of-coffee.png" 
+            alt="Logo" 
+            className="h-14 w-14 object-contain" 
+          />
           {isOpen && (
             <div className="ml-2">
-              <h1 className="text-xl font-bold text-yellow-200">Brew-Coffee</h1>
-              <p className="text-xs text-white">Admin panel</p>
+              <h1 className="text-xl font-bold text-black">Brew-Coffee</h1>
+              <p className="text-xs text-black">Admin panel</p>
             </div>
           )}
         </div>
         
         <div className="flex-1 overflow-y-auto py-4">
           <nav className="px-3 space-y-1">
-            {/* Dashboard */}
-            <NavLink 
-              to="/dashboard" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              end
-            >
-              <LayoutDashboard className="mr-3 h-5 w-5" />
-              {isOpen && <span>Dashboard</span>}
-            </NavLink>
-            
-            {/* Menu */}
-            <NavLink 
-              to="/menu" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Coffee className="mr-3 h-5 w-5" />
-              {isOpen && <span>Menu</span>}
-            </NavLink>
-            
-            {/* Orders */}
-            <NavLink 
-              to="/orders" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <ClipboardList className="mr-3 h-5 w-5" />
-              {isOpen && <span>Orders</span>}
-            </NavLink>
-
-            {/* Reports */}
-            <NavLink 
-              to="/reports" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <BarChart3 className="mr-3 h-5 w-5" />
-              {isOpen && <span>Reports</span>}
-            </NavLink>
-            
-            {/* Inventory */}
-            <NavLink 
-              to="/inventory" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Package className="mr-3 h-5 w-5" />
-              {isOpen && <span>Inventory</span>}
-            </NavLink>
-            
-            {/* Products */}
-            <NavLink 
-              to="/products" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <ShoppingBag className="mr-3 h-5 w-5" />
-              {isOpen && <span>Products</span>}
-            </NavLink>
-            
-            {/* Settings */}
-            <NavLink 
-              to="/settings" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Settings className="mr-3 h-5 w-5" />
-              {isOpen && <span>Settings</span>}
-            </NavLink>
-            
-            {/* About */}
-            <NavLink 
-              to="/about" 
-              className={({ isActive }) => 
-                `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                  isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`
-              }
-              style={navLinkStyle}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Info className="mr-3 h-5 w-5" />
-              {isOpen && <span>About</span>}
-            </NavLink>
+            {/* Reusable links */}
+            {[
+              { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+              { to: "/menu", label: "Menu", icon: Coffee },
+              { to: "/orders", label: "Orders", icon: ClipboardList },
+              { to: "/reports", label: "Reports", icon: BarChart3 },
+              { to: "/inventory", label: "Inventory", icon: Package },
+              { to: "/products", label: "Products", icon: ShoppingBag },
+              { to: "/settings", label: "Settings", icon: Settings },
+              { to: "/about", label: "About", icon: Info },
+            ].map(({ to, label, icon: Icon }) => (
+              <NavLink 
+                key={to}
+                to={to}
+                className={({ isActive }) => 
+                  `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                    isActive ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`
+                }
+                style={navLinkStyle}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <Icon className="mr-3 h-5 w-5" />
+                {isOpen && <span>{label}</span>}
+              </NavLink>
+            ))}
 
             {/* Sign Out */}
             <button
               onClick={handleSignOut}
-              className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-[#5A591B]"
+              className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white"
+              style={{ backgroundColor: 'transparent' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5C4033')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               <LogOut className="mr-3 h-5 w-5" />
               {isOpen && <span>Sign Out</span>}

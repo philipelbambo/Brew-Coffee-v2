@@ -16,8 +16,8 @@ import Orders from './pages/Orders';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Inventory from './pages/Inventory';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from './layouts/Login';
+
 import About from './pages/About';
 import Homepage from './pages/Homepage';
 import OrderNow from './pages/OrderNow';
@@ -34,8 +34,7 @@ function App() {
           <Routes>
             {/* Auth Routes */}
             <Route element={<AuthLayout />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+          
             </Route>
 
             {/* Main App Routes */}
@@ -53,7 +52,7 @@ function App() {
             <Route path ="/" element={<Homepage />} />
             <Route path ="/ordernow" element={<OrderNow />} />
             <Route path ="/dessert" element={<DessertOrderingSystem />} />
-
+            <Route path ="/login" element={<Login />} />
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
