@@ -98,7 +98,7 @@
         id: 2,
         name: "Strawberry Cheesecake",
         price: 9.99,
-        image: " /images/SliderGallery/bread2.png ",
+        image: "/images/SliderGallery/bread2.png",
         description: "Experience the perfect balance of creamy and fruity with our classic New York-style Strawberry Cheesecake.",
         ingredients: [
             "Philadelphia cream cheese",
@@ -375,24 +375,24 @@
     };
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white w-full">
         {/* Header */}
         <header className="bg-white shadow-md sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div className="w-full px-6 sm:px-8 lg:px-12 py-4 flex justify-between items-center">
             <div className="flex items-center gap-4">
                 <button
                 onClick={() => window.history.back()}
                 className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                style={{ color: '#4C4B16' }}
+                style={{ color: '#4B352A' }}
                 >
                 <ArrowLeft size={24} />
                 </button>
-                <h1 className="text-3xl font-bold" style={{ color: '#4C4B16' }}>Sweet Delights</h1>
+                <h1 className="text-3xl font-bold" style={{ color: '#4B352A' }}>Sweet Delights</h1>
             </div>
             <button
                 onClick={() => setShowCart(true)}
                 className="relative text-white p-3 rounded-full hover:opacity-80 transition-colors"
-                style={{ backgroundColor: '#4C4B16' }}
+                style={{ backgroundColor: '#4B352A' }}
             >
                 <ShoppingCart size={24} />
                 {getTotalItems() > 0 && (
@@ -405,36 +405,37 @@
         </header>
 
         {/* Main Content */}
-        <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="w-full px-6 sm:px-8 lg:px-12 py-8">
             <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4" style={{ color: '#4C4B16' }}>Our Delicious Desserts</h2>
-            <p className="text-xl" style={{ color: '#4C4B16' }}>Satisfy your sweet tooth with our premium desserts</p>
+            <h2 className="text-4xl font-bold mb-4" style={{ color: '#4B352A' }}>Our Delicious Desserts</h2>
+            <p className="text-xl" style={{ color: '#4B352A' }}>Satisfy your sweet tooth with our premium desserts</p>
             </div>
 
             {/* Dessert Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
             {desserts.map(dessert => (
-                <div key={dessert.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div key={dessert.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow w-full max-w-xs">
                 <img
                     src={dessert.image}
                     alt={dessert.name}
-                    className="w-full h-64 object-cover cursor-pointer"
+                    className="w-full h-auto object-contain cursor-pointer"
+                    style={{ maxHeight: '280px' }}
                     onClick={() => openDessertModal(dessert)}
                 />
-                <div className="p-4">
+                <div className="p-5">
                     <h3
-                    className="text-xl font-bold mb-3 cursor-pointer hover:opacity-80 transition-colors"
-                    style={{ color: '#4C4B16' }}
+                    className="text-xl font-bold mb-3 cursor-pointer hover:opacity-80 transition-colors text-center"
+                    style={{ color: '#4B352A' }}
                     onClick={() => openDessertModal(dessert)}
                     >
                     {dessert.name}
                     </h3>
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <span className="text-2xl font-bold" style={{ color: '#4C4B16' }}>₱{dessert.price}</span>
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <span className="text-2xl font-bold" style={{ color: '#4B352A' }}>₱{dessert.price}</span>
                     <button
                         onClick={() => addToCart(dessert)}
-                        className="text-white px-4 py-2 rounded-lg hover:opacity-80 transition-colors flex items-center gap-2 text-sm"
-                        style={{ backgroundColor: '#4C4B16' }}
+                        className="text-white px-5 py-2 rounded-lg hover:opacity-80 transition-colors flex items-center gap-2 text-sm w-full sm:w-auto text-center"
+                        style={{ backgroundColor: '#4B352A' }}
                     >
                         <Plus size={16} />
                         Add to Cart
@@ -449,28 +450,25 @@
         {/* Cart Modal */}
         {showCart && (
             <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
                 <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">Shopping Cart</h2>
-                    <button
-                    onClick={() => setShowCart(false)}
-                    className="text-gray-500 hover:text-gray-700"
-                    >
+                    <button onClick={() => setShowCart(false)} className="text-gray-500 hover:text-gray-700">
                     <X size={24} />
                     </button>
                 </div>
 
                 {cart.length === 0 ? (
-                    <p className="text-center py-8" style={{ color: '#4C4B16' }}>Your cart is empty</p>
+                    <p className="text-center py-8" style={{ color: '#4B352A' }}>Your cart is empty</p>
                 ) : (
                     <>
                     {cart.map(item => (
                         <div key={item.id} className="flex items-center gap-4 py-4 border-b">
-                        <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
+                        <img src={item.image} alt={item.name} className="w-20 h-20 object-contain rounded-lg" />
                         <div className="flex-1">
-                            <h3 className="font-semibold" style={{ color: '#4C4B16' }}>{item.name}</h3>
-                            <p style={{ color: '#4C4B16' }}>₱{item.price}</p>
+                            <h3 className="font-semibold" style={{ color: '#4B352A' }}>{item.name}</h3>
+                            <p style={{ color: '#4B352A' }}>₱{item.price}</p>
                         </div>
                         <div className="flex items-center gap-3">
                             <button
@@ -479,7 +477,7 @@
                             >
                             <Minus size={16} />
                             </button>
-                            <span className="font-semibold" style={{ color: '#4C4B16' }}>{item.quantity}</span>
+                            <span className="font-semibold" style={{ color: '#4B352A' }}>{item.quantity}</span>
                             <button
                             onClick={() => updateQuantity(item.id, 1)}
                             className="bg-gray-200 p-1 rounded hover:bg-gray-300"
@@ -496,16 +494,16 @@
                         </div>
                     ))}
 
-                    <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                        <div className="flex justify-between items-center text-xl font-bold">
-                        <span style={{ color: '#4C4B16' }}>Total: ₱{getTotalPrice()}</span>
+                    <div className="mt-6 p-5 bg-gray-50 rounded-lg">
+                        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xl font-bold">
+                        <span style={{ color: '#4B352A' }}>Total: ₱{getTotalPrice()}</span>
                         <button
                             onClick={() => {
                             setShowCart(false);
                             setShowCheckout(true);
                             }}
-                            className="text-white px-6 py-3 rounded-lg hover:opacity-80 transition-colors"
-                            style={{ backgroundColor: '#4C4B16' }}
+                            className="text-white px-6 py-3 rounded-lg hover:opacity-80 transition-colors w-full sm:w-auto"
+                            style={{ backgroundColor: '#4B352A' }}
                         >
                             Checkout
                         </button>
@@ -520,16 +518,12 @@
 
         {/* Dessert Detail Modal */}
         {showDessertModal && selectedDessert && (
-            <div className="fixed inset-0 backdrop-blur-md bg-white/30 bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
+            <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                <div className="p-8">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold mb-6" style={{ color: '#4C4B16' }}>{selectedDessert.name}</h2>
-                    <button
-                    onClick={closeDessertModal}
-                    className="hover:opacity-70"
-                    style={{ color: '#4C4B16' }}
-                    >
+                    <h2 className="text-3xl font-bold" style={{ color: '#4B352A' }}>{selectedDessert.name}</h2>
+                    <button onClick={closeDessertModal} className="hover:opacity-70" style={{ color: '#4B352A' }}>
                     <X size={24} />
                     </button>
                 </div>
@@ -537,22 +531,21 @@
                 <img
                     src={selectedDessert.image}
                     alt={selectedDessert.name}
-                    className="w-full h-64 object-cover rounded-lg mb-6"
+                    className="w-full h-auto object-contain rounded-lg mb-6"
+                    style={{ maxHeight: '400px' }}
                 />
 
                 <div className="space-y-6">
-                    <div>
-                    <p className="text-lg leading-relaxed mb-6" style={{ color: '#4C4B16' }}>{selectedDessert.description}</p>
-                    </div>
+                    <p className="text-lg leading-relaxed" style={{ color: '#4B352A' }}>{selectedDessert.description}</p>
 
                     {/* Ingredients */}
                     <div className="border-t pt-4">
-                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Ingredients</h4>
-                    <div className="grid grid-cols-2 gap-2">
+                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Ingredients</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {selectedDessert.ingredients.map((ingredient, index) => (
                         <div key={index} className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#4C4B16' }}></span>
-                            <span className="text-sm" style={{ color: '#4C4B16' }}>{ingredient}</span>
+                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#4B352A' }}></span>
+                            <span className="text-sm" style={{ color: '#4B352A' }}>{ingredient}</span>
                         </div>
                         ))}
                     </div>
@@ -560,12 +553,12 @@
 
                     {/* Nutritional Info */}
                     <div className="border-t pt-4">
-                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Nutritional Information</h4>
+                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Nutritional Information</h4>
                     <div className="grid grid-cols-2 gap-3">
                         {Object.entries(selectedDessert.nutritionalInfo).map(([key, value]) => (
                         <div key={key} className="flex justify-between">
-                            <span className="font-medium" style={{ color: '#4C4B16' }}>{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
-                            <span style={{ color: '#4C4B16' }}>{value}</span>
+                            <span className="font-medium" style={{ color: '#4B352A' }}>{key.charAt(0).toUpperCase() + key.slice(1)}:</span>
+                            <span style={{ color: '#4B352A' }}>{value}</span>
                         </div>
                         ))}
                     </div>
@@ -573,32 +566,32 @@
 
                     {/* Additional Info */}
                     <div className="border-t pt-4">
-                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Dessert Information</h4>
+                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Dessert Information</h4>
                     <div className="space-y-2">
                         <div className="flex justify-between">
-                        <span className="font-medium" style={{ color: '#4C4B16' }}>Serving Size:</span>
-                        <span style={{ color: '#4C4B16' }}>{selectedDessert.servingSize}</span>
+                        <span className="font-medium" style={{ color: '#4B352A' }}>Serving Size:</span>
+                        <span style={{ color: '#4B352A' }}>{selectedDessert.servingSize}</span>
                         </div>
                         <div className="flex justify-between">
-                        <span className="font-medium" style={{ color: '#4C4B16' }}>Preparation Time:</span>
-                        <span style={{ color: '#4C4B16' }}>{selectedDessert.preparationTime}</span>
+                        <span className="font-medium" style={{ color: '#4B352A' }}>Preparation Time:</span>
+                        <span style={{ color: '#4B352A' }}>{selectedDessert.preparationTime}</span>
                         </div>
                         <div className="flex justify-between">
-                        <span className="font-medium" style={{ color: '#4C4B16' }}>Difficulty:</span>
-                        <span style={{ color: '#4C4B16' }}>{selectedDessert.difficulty}</span>
+                        <span className="font-medium" style={{ color: '#4B352A' }}>Difficulty:</span>
+                        <span style={{ color: '#4B352A' }}>{selectedDessert.difficulty}</span>
                         </div>
                     </div>
                     </div>
 
                     {/* Allergens */}
                     <div className="border-t pt-4">
-                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Allergen Information</h4>
+                    <h4 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Allergen Information</h4>
                     <div className="flex flex-wrap gap-2">
                         {selectedDessert.allergens.map((allergen, index) => (
                         <span
                             key={index}
                             className="px-3 py-1 rounded-full text-sm text-white"
-                            style={{ backgroundColor: '#4C4B16' }}
+                            style={{ backgroundColor: '#4B352A' }}
                         >
                             {allergen}
                         </span>
@@ -606,15 +599,15 @@
                     </div>
                     </div>
 
-                    <div className="flex justify-between items-center pt-4 border-t">
-                    <span className="text-3xl font-bold" style={{ color: '#4C4B16' }}>₱{selectedDessert.price}</span>
+                    <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t gap-4">
+                    <span className="text-3xl font-bold" style={{ color: '#4B352A' }}>₱{selectedDessert.price}</span>
                     <button
                         onClick={() => {
                         addToCart(selectedDessert);
                         closeDessertModal();
                         }}
-                        className="text-white px-8 py-3 rounded-lg hover:opacity-80 transition-colors flex items-center gap-2"
-                        style={{ backgroundColor: '#4C4B16' }}
+                        className="text-white px-8 py-3 rounded-lg hover:opacity-80 transition-colors flex items-center gap-2 w-full sm:w-auto"
+                        style={{ backgroundColor: '#4B352A' }}
                     >
                         <Plus size={20} />
                         Add to Cart
@@ -628,67 +621,57 @@
 
         {/* Checkout Modal */}
         {showCheckout && (
-            <div className="fixed inset-0 backdrop-blur-md bg-white/30 bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6">
+            <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                <div className="p-8">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">Checkout</h2>
-                    <button
-                    onClick={() => setShowCheckout(false)}
-                    className="text-gray-500 hover:text-gray-700"
-                    >
+                    <button onClick={() => setShowCheckout(false)} className="text-gray-500 hover:text-gray-700">
                     <X size={24} />
                     </button>
                 </div>
 
-                <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <input
-                        type="text"
-                        placeholder="Full Name"
-                        required
-                        className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        value={customerDetails.name}
-                        onChange={(e) => setCustomerDetails({ ...customerDetails, name: e.target.value })}
+                    type="text"
+                    placeholder="Full Name"
+                    required
+                    className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    value={customerDetails.name}
+                    onChange={(e) => setCustomerDetails({ ...customerDetails, name: e.target.value })}
                     />
                     <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        value={customerDetails.email}
-                        onChange={(e) => setCustomerDetails({ ...customerDetails, email: e.target.value })}
-                    />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                        type="tel"
-                        placeholder="Phone Number"
-                        required
-                        className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        value={customerDetails.phone}
-                        onChange={(e) => setCustomerDetails({ ...customerDetails, phone: e.target.value })}
+                    type="email"
+                    placeholder="Email"
+                    required
+                    className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    value={customerDetails.email}
+                    onChange={(e) => setCustomerDetails({ ...customerDetails, email: e.target.value })}
                     />
                     <input
-                        type="text"
-                        placeholder="City"
-                        required
-                        className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        value={customerDetails.city}
-                        onChange={(e) => setCustomerDetails({ ...customerDetails, city: e.target.value })}
+                    type="tel"
+                    placeholder="Phone Number"
+                    required
+                    className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    value={customerDetails.phone}
+                    onChange={(e) => setCustomerDetails({ ...customerDetails, phone: e.target.value })}
                     />
-                    </div>
-
+                    <input
+                    type="text"
+                    placeholder="City"
+                    required
+                    className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    value={customerDetails.city}
+                    onChange={(e) => setCustomerDetails({ ...customerDetails, city: e.target.value })}
+                    />
                     <input
                     type="text"
                     placeholder="Complete Address"
                     required
-                    className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="md:col-span-2 border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     value={customerDetails.address}
                     onChange={(e) => setCustomerDetails({ ...customerDetails, address: e.target.value })}
                     />
-
                     <input
                     type="text"
                     placeholder="ZIP Code"
@@ -697,110 +680,110 @@
                     value={customerDetails.zipCode}
                     onChange={(e) => setCustomerDetails({ ...customerDetails, zipCode: e.target.value })}
                     />
+                </div>
 
-                    {/* Payment Method */}
-                    <div className="space-y-4">
-                    <h3 className="text-lg font-semibold mb-4" style={{ color: '#4C4B16' }}>Payment Method</h3>
+                {/* Payment Method */}
+                <div className="space-y-4 mb-6">
+                    <h3 className="text-lg font-semibold" style={{ color: '#4B352A' }}>Payment Method</h3>
                     <div className="space-y-3">
-                        <label className="flex items-center space-x-3">
+                    <label className="flex items-center space-x-3">
                         <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="gcash"
-                            required
-                            className="form-radio"
-                            onChange={(e) => setCustomerDetails({ ...customerDetails, paymentMethod: e.target.value as 'gcash' | 'cod' })}
+                        type="radio"
+                        name="paymentMethod"
+                        value="gcash"
+                        required
+                        className="form-radio"
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, paymentMethod: e.target.value as 'gcash' | 'cod' })}
                         />
                         <Smartphone className="text-blue-600" size={20} />
-                        <span style={{ color: '#4C4B16' }}>GCash</span>
-                        </label>
-                        <label className="flex items-center space-x-3">
+                        <span style={{ color: '#4B352A' }}>GCash</span>
+                    </label>
+                    <label className="flex items-center space-x-3">
                         <input
-                            type="radio"
-                            name="paymentMethod"
-                            value="cod"
-                            required
-                            className="form-radio"
-                            onChange={(e) => setCustomerDetails({ ...customerDetails, paymentMethod: e.target.value as 'gcash' | 'cod' })}
+                        type="radio"
+                        name="paymentMethod"
+                        value="cod"
+                        required
+                        className="form-radio"
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, paymentMethod: e.target.value as 'gcash' | 'cod' })}
                         />
                         <CreditCard className="text-green-600" size={20} />
-                        <span style={{ color: '#4C4B16' }}>Cash on Delivery</span>
-                        </label>
+                        <span style={{ color: '#4B352A' }}>Cash on Delivery</span>
+                    </label>
                     </div>
 
                     {customerDetails.paymentMethod === 'gcash' && (
-                        <div className="bg-blue-50 p-4 rounded-lg">
-                        <h4 className="font-semibold mb-2" style={{ color: '#4C4B16' }}>Send Payment to:</h4>
-                        <p className="text-xl font-bold" style={{ color: '#4C4B16' }}>{customerDetails.gcashNumber}</p>
-                        <p className="text-sm mt-1" style={{ color: '#4C4B16' }}>Total Amount: ₱{getTotalPrice()}</p>
-                        </div>
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                        <h4 className="font-semibold mb-2" style={{ color: '#4B352A' }}>Send Payment to:</h4>
+                        <p className="text-xl font-bold" style={{ color: '#4B352A' }}>{customerDetails.gcashNumber}</p>
+                        <p className="text-sm mt-1" style={{ color: '#4B352A' }}>Total Amount: ₱{getTotalPrice()}</p>
+                    </div>
                     )}
 
                     {/* Screenshot Upload */}
                     <div className="space-y-3">
-                        <h4 className="font-semibold mb-3" style={{ color: '#4C4B16' }}>Payment Screenshot (Optional)</h4>
-                        <div className="flex items-center gap-3">
+                    <h4 className="font-semibold mb-3" style={{ color: '#4B352A' }}>Payment Screenshot (Optional)</h4>
+                    <div className="flex items-center gap-3">
                         <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileUpload}
-                            ref={fileInputRef}
-                            className="hidden"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        ref={fileInputRef}
+                        className="hidden"
                         />
                         <button
-                            type="button"
-                            onClick={() => fileInputRef.current?.click()}
-                            className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
                         >
-                            <Upload size={20} />
-                            Upload Screenshot
+                        <Upload size={20} />
+                        Upload Screenshot
                         </button>
                         {paymentScreenshot && (
-                            <button
+                        <button
                             type="button"
                             onClick={removeScreenshot}
                             className="text-red-500 hover:text-red-700"
-                            >
+                        >
                             <X size={20} />
-                            </button>
+                        </button>
                         )}
-                        </div>
-                        {paymentScreenshot && (
+                    </div>
+                    {paymentScreenshot && (
                         <img
-                            src={paymentScreenshot}
-                            alt="Payment Screenshot"
-                            className="max-w-xs max-h-32 object-contain border rounded-lg"
+                        src={paymentScreenshot}
+                        alt="Payment Screenshot"
+                        className="max-w-xs max-h-32 object-contain border rounded-lg"
                         />
-                        )}
+                    )}
                     </div>
-                    </div>
+                </div>
 
-                    {/* Order Summary */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-3" style={{ color: '#4C4B16' }}>Order Summary</h3>
+                {/* Order Summary */}
+                <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                    <h3 className="font-semibold mb-3" style={{ color: '#4B352A' }}>Order Summary</h3>
                     {cart.map(item => (
-                        <div key={item.id} className="flex justify-between mb-2">
-                        <span style={{ color: '#4C4B16' }}>{item.name} x{item.quantity}</span>
-                        <span style={{ color: '#4C4B16' }}>₱{(item.price * item.quantity).toFixed(2)}</span>
-                        </div>
+                    <div key={item.id} className="flex justify-between mb-2">
+                        <span style={{ color: '#4B352A' }}>{item.name} x{item.quantity}</span>
+                        <span style={{ color: '#4B352A' }}>₱{(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
                     ))}
                     <div className="border-t pt-2 mt-2">
-                        <div className="flex justify-between font-bold text-lg">
-                        <span style={{ color: '#4C4B16' }}>Total</span>
-                        <span style={{ color: '#4C4B16' }}>₱{getTotalPrice()}</span>
-                        </div>
+                    <div className="flex justify-between font-bold text-lg">
+                        <span style={{ color: '#4B352A' }}>Total</span>
+                        <span style={{ color: '#4B352A' }}>₱{getTotalPrice()}</span>
                     </div>
                     </div>
+                </div>
 
-                    <button
+                <button
                     type="button"
                     onClick={handleCheckout}
                     className="w-full text-white py-4 rounded-lg font-semibold hover:opacity-80 transition-colors"
-                    style={{ backgroundColor: '#4C4B16' }}
-                    >
+                    style={{ backgroundColor: '#4B352A' }}
+                >
                     Place Order
-                    </button>
-                </div>
+                </button>
                 </div>
             </div>
             </div>
@@ -808,52 +791,52 @@
 
         {/* Receipt Modal */}
         {showReceipt && orderDetails && (
-            <div className="fixed inset-0 backdrop-blur-md bg-white/30 bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="p-6" id="receipt">
+            <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                <div className="p-8" id="receipt">
                 <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold" style={{ color: '#4C4B16' }}>Sweet Delights</h2>
-                    <p style={{ color: '#4C4B16' }}>Order Receipt</p>
+                    <h2 className="text-3xl font-bold" style={{ color: '#4B352A' }}>Sweet Delights</h2>
+                    <p className="text-lg" style={{ color: '#4B352A' }}>Order Receipt</p>
                 </div>
 
                 <div className="space-y-4 mb-6">
                     <div className="flex justify-between">
-                    <span className="font-semibold" style={{ color: '#4C4B16' }}>Order ID:</span>
-                    <span style={{ color: '#4C4B16' }}>{orderDetails.id}</span>
+                    <span className="font-semibold" style={{ color: '#4B352A' }}>Order ID:</span>
+                    <span style={{ color: '#4B352A' }}>{orderDetails.id}</span>
                     </div>
                     <div className="flex justify-between">
-                    <span className="font-semibold" style={{ color: '#4C4B16' }}>Date:</span>
-                    <span style={{ color: '#4C4B16' }}>{orderDetails.date}</span>
+                    <span className="font-semibold" style={{ color: '#4B352A' }}>Date:</span>
+                    <span style={{ color: '#4B352A' }}>{orderDetails.date}</span>
                     </div>
                     <div className="flex justify-between">
-                    <span className="font-semibold" style={{ color: '#4C4B16' }}>Time:</span>
-                    <span style={{ color: '#4C4B16' }}>{orderDetails.time}</span>
+                    <span className="font-semibold" style={{ color: '#4B352A' }}>Time:</span>
+                    <span style={{ color: '#4B352A' }}>{orderDetails.time}</span>
                     </div>
                 </div>
 
                 <div className="border-t pt-4 mb-6">
-                    <h3 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Customer Details</h3>
+                    <h3 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Customer Details</h3>
                     <div className="space-y-2 text-sm">
-                    <p><span className="font-semibold" style={{ color: '#4C4B16' }}>Name:</span> <span style={{ color: '#4C4B16' }}>{orderDetails.customer.name}</span></p>
-                    <p><span className="font-semibold" style={{ color: '#4C4B16' }}>Email:</span> <span style={{ color: '#4C4B16' }}>{orderDetails.customer.email}</span></p>
-                    <p><span className="font-semibold" style={{ color: '#4C4B16' }}>Phone:</span> <span style={{ color: '#4C4B16' }}>{orderDetails.customer.phone}</span></p>
-                    <p><span className="font-semibold" style={{ color: '#4C4B16' }}>Address:</span> <span style={{ color: '#4C4B16' }}>{orderDetails.customer.address}, {orderDetails.customer.city}, {orderDetails.customer.zipCode}</span></p>
-                    <p><span className="font-semibold" style={{ color: '#4C4B16' }}>Payment Method:</span> <span style={{ color: '#4C4B16' }}>{orderDetails.customer.paymentMethod === 'gcash' ? 'GCash' : 'Cash on Delivery'}</span></p>
+                    <p><span className="font-semibold" style={{ color: '#4B352A' }}>Name:</span> {orderDetails.customer.name}</p>
+                    <p><span className="font-semibold" style={{ color: '#4B352A' }}>Email:</span> {orderDetails.customer.email}</p>
+                    <p><span className="font-semibold" style={{ color: '#4B352A' }}>Phone:</span> {orderDetails.customer.phone}</p>
+                    <p><span className="font-semibold" style={{ color: '#4B352A' }}>Address:</span> {orderDetails.customer.address}, {orderDetails.customer.city}, {orderDetails.customer.zipCode}</p>
+                    <p><span className="font-semibold" style={{ color: '#4B352A' }}>Payment Method:</span> {orderDetails.customer.paymentMethod === 'gcash' ? 'GCash' : 'Cash on Delivery'}</p>
                     </div>
                 </div>
 
                 <div className="border-t pt-4 mb-6">
-                    <h3 className="font-bold text-lg mb-3" style={{ color: '#4C4B16' }}>Order Items</h3>
+                    <h3 className="font-bold text-lg mb-3" style={{ color: '#4B352A' }}>Order Items</h3>
                     {orderDetails.items.map(item => (
                     <div key={item.id} className="flex justify-between mb-2">
-                        <span style={{ color: '#4C4B16' }}>{item.name} x{item.quantity}</span>
-                        <span style={{ color: '#4C4B16' }}>₱{(item.price * item.quantity).toFixed(2)}</span>
+                        <span style={{ color: '#4B352A' }}>{item.name} x{item.quantity}</span>
+                        <span style={{ color: '#4B352A' }}>₱{(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                     ))}
                     <div className="border-t pt-2 mt-2">
                     <div className="flex justify-between font-bold text-lg">
-                        <span style={{ color: '#4C4B16' }}>Total</span>
-                        <span style={{ color: '#4C4B16' }}>₱{orderDetails.total}</span>
+                        <span style={{ color: '#4B352A' }}>Total</span>
+                        <span style={{ color: '#4B352A' }}>₱{orderDetails.total}</span>
                     </div>
                     </div>
                 </div>
@@ -862,7 +845,7 @@
                     <button
                     onClick={printReceipt}
                     className="flex-1 text-white py-3 rounded-lg hover:opacity-80 transition-colors flex items-center justify-center gap-2"
-                    style={{ backgroundColor: '#4C4B16' }}
+                    style={{ backgroundColor: '#4B352A' }}
                     >
                     <FileText size={20} />
                     Print Receipt
@@ -870,7 +853,7 @@
                     <button
                     onClick={startNewOrder}
                     className="flex-1 text-white py-3 rounded-lg hover:opacity-80 transition-colors"
-                    style={{ backgroundColor: '#4C4B16' }}
+                    style={{ backgroundColor: '#4B352A' }}
                     >
                     New Order
                     </button>

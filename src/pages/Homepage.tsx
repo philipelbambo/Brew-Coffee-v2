@@ -219,7 +219,7 @@
 
             /* Background image styles */
             .main-background {
-            background-image: url('/images/Gallery3/background.jpg');
+            background-image: url('/images/Gallery3/customize1.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -228,34 +228,34 @@
         `}</style>
 
         {/* Header Navigation */}
-        <header className="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-[#4B352A] backdrop-blur-sm">
+        <header className="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-[#f8f8f8] backdrop-blur-sm">
             <div className="container mx-auto flex items-center justify-between">
             {/* Navigation Menu - Left Side */}
             <nav className="flex items-center space-x-8">
                 <button
                 onClick={() => scrollToSection('menu')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-white hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
                 >
                 <FaUtensils className="mr-2" />
                 Menu
                 </button>
                 <button
                 onClick={() => scrollToSection('gallery')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-white hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
                 >
                 <FaImage className="mr-2" />
                 Gallery
                 </button>
                 <button
                 onClick={() => scrollToSection('about')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-white hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
                 >
                 <FaInfoCircle className="mr-2" />
                 About Us
                 </button>
                 <button
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-white hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
                 >
                 <FaEnvelope className="mr-2" />
                 Contact

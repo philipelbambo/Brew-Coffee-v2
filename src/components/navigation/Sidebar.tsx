@@ -23,22 +23,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 
   // Active link background
   const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
-    backgroundColor: isActive ? '#3A271F' : 'transparent', // darker shade of #4B352A
+    backgroundColor: isActive ? '#E5E5E5' : 'transparent', // light gray active background
+    color: isActive ? 'black' : 'black',
   });
-
-  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const element = e.currentTarget;
-    if (!element.style.backgroundColor || element.style.backgroundColor === 'transparent') {
-      element.style.backgroundColor = '#5C4033'; // lighter hover shade
-    }
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const element = e.currentTarget;
-    if (element.style.backgroundColor !== '#3A271F') {
-      element.style.backgroundColor = 'transparent';
-    }
-  };
 
   const handleSignOut = () => setShowModal(true);
 
@@ -56,10 +43,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       <div 
         className={`border-r transition-all duration-300 flex flex-col 
         ${isOpen ? 'w-60' : 'w-20'}`}
-        style={{ backgroundColor: '#4B352A', borderColor: '#4B352A' }}
+        style={{ backgroundColor: 'white', borderColor: '#E5E5E5' }}
       >
-        <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#3A271F' }}>
-          {/* Replaced Coffee Icon with image.png */}
+        <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#E5E5E5' }}>
           <img 
             src="/images/Gallery1/cup-of-coffee.png" 
             alt="Logo" 
@@ -75,7 +61,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         
         <div className="flex-1 overflow-y-auto py-4">
           <nav className="px-3 space-y-1">
-            {/* Reusable links */}
             {[
               { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
               { to: "/menu", label: "Menu", icon: Coffee },
@@ -89,29 +74,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
               <NavLink 
                 key={to}
                 to={to}
-                className={({ isActive }) => 
-                  `flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                    isActive ? 'text-white' : 'text-gray-300 hover:text-white'
-                  }`
-                }
+                className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100"
                 style={navLinkStyle}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
               >
-                <Icon className="mr-3 h-5 w-5" />
-                {isOpen && <span>{label}</span>}
+                <Icon className="mr-3 h-5 w-5 text-black" />
+                {isOpen && <span className="text-black">{label}</span>}
               </NavLink>
             ))}
 
             {/* Sign Out */}
             <button
               onClick={handleSignOut}
-              className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white"
+              className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-black hover:bg-gray-100"
               style={{ backgroundColor: 'transparent' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5C4033')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              <LogOut className="mr-3 h-5 w-5" />
+              <LogOut className="mr-3 h-5 w-5 text-black" />
               {isOpen && <span>Sign Out</span>}
             </button>
           </nav>
