@@ -21,10 +21,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Active link background
   const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
-    backgroundColor: isActive ? '#E5E5E5' : 'transparent', // light gray active background
-    color: isActive ? 'black' : 'black',
+    backgroundColor: isActive ? '#E5E5E5' : 'transparent',
+    color: 'black',
   });
 
   const handleSignOut = () => setShowModal(true);
@@ -41,57 +40,62 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
     <>
       <div 
-        className={`border-r transition-all duration-300 flex flex-col 
+        className={`border-r transition-all duration-300 flex flex-col justify-between 
         ${isOpen ? 'w-60' : 'w-20'}`}
         style={{ backgroundColor: 'white', borderColor: '#E5E5E5' }}
       >
-        <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#E5E5E5' }}>
-          <img 
-            src="/images/Gallery1/cup-of-coffee.png" 
-            alt="Logo" 
-            className="h-14 w-14 object-contain" 
-          />
-          {isOpen && (
-            <div className="ml-2">
-              <h1 className="text-xl font-bold text-black">Brew-Coffee</h1>
-              <p className="text-xs text-black">Admin panel</p>
-            </div>
-          )}
-        </div>
-        
-        <div className="flex-1 overflow-y-auto py-4">
-          <nav className="px-3 space-y-1">
-            {[
-              { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-              { to: "/menu", label: "Menu", icon: Coffee },
-              { to: "/orders", label: "Orders", icon: ClipboardList },
-              { to: "/reports", label: "Reports", icon: BarChart3 },
-              { to: "/inventory", label: "Inventory", icon: Package },
-              { to: "/products", label: "Products", icon: ShoppingBag },
-              { to: "/settings", label: "Settings", icon: Settings },
-              { to: "/about", label: "About", icon: Info },
-            ].map(({ to, label, icon: Icon }) => (
-              <NavLink 
-                key={to}
-                to={to}
-                className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100"
-                style={navLinkStyle}
-              >
-                <Icon className="mr-3 h-5 w-5 text-black" />
-                {isOpen && <span className="text-black">{label}</span>}
-              </NavLink>
-            ))}
+        {/* Top Section */}
+        <div>
+          <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#E5E5E5' }}>
+            <img 
+              src="/images/Gallery1/cup-of-coffee.png" 
+              alt="Logo" 
+              className="h-14 w-14 object-contain" 
+            />
+            {isOpen && (
+              <div className="ml-2">
+                <h1 className="text-xl font-bold text-black">Brew-Coffee</h1>
+                <p className="text-xs text-black">Admin panel</p>
+              </div>
+            )}
+          </div>
 
-            {/* Sign Out */}
-            <button
-              onClick={handleSignOut}
-              className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-black hover:bg-gray-100"
-              style={{ backgroundColor: 'transparent' }}
-            >
-              <LogOut className="mr-3 h-5 w-5 text-black" />
-              {isOpen && <span>Sign Out</span>}
-            </button>
-          </nav>
+          {/* Navigation */}
+          <div className="flex-1 overflow-y-auto py-4">
+            <nav className="px-3 space-y-1">
+              {[
+                { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+                { to: "/menu", label: "Menu", icon: Coffee },
+                { to: "/orders", label: "Orders", icon: ClipboardList },
+                { to: "/reports", label: "Reports", icon: BarChart3 },
+                { to: "/inventory", label: "Inventory", icon: Package },
+                { to: "/products", label: "Products", icon: ShoppingBag },
+                { to: "/settings", label: "Settings", icon: Settings },
+                { to: "/about", label: "About", icon: Info },
+              ].map(({ to, label, icon: Icon }) => (
+                <NavLink 
+                  key={to}
+                  to={to}
+                  className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100"
+                  style={navLinkStyle}
+                >
+                  <Icon className="mr-3 h-5 w-5 text-black" />
+                  {isOpen && <span className="text-black">{label}</span>}
+                </NavLink>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Bottom Section (Sign Out) */}
+        <div className="p-3 border-t" style={{ borderColor: '#E5E5E5' }}>
+          <button
+            onClick={handleSignOut}
+            className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-black hover:bg-gray-100"
+          >
+            <LogOut className="mr-3 h-5 w-5 text-black" />
+            {isOpen && <span>Sign Out</span>}
+          </button>
         </div>
       </div>
 

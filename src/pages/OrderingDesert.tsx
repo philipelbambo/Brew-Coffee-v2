@@ -62,9 +62,9 @@
     const [toastMessage, setToastMessage] = useState<string>('');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Sample dessert data
-    const desserts: Dessert[] = [
-        {
+// Sample dessert data
+const desserts: Dessert[] = [
+    {
         id: 1,
         name: "Chocolate Lava Cake",
         price: 12.99,
@@ -93,8 +93,8 @@
         servingSize: "1 slice (150g)",
         preparationTime: "25 minutes",
         difficulty: "Medium"
-        },
-        {
+    },
+    {
         id: 2,
         name: "Strawberry Cheesecake",
         price: 9.99,
@@ -123,8 +123,8 @@
         servingSize: "1 slice (120g)",
         preparationTime: "4 hours (including chill time)",
         difficulty: "Easy"
-        },
-        {
+    },
+    {
         id: 3,
         name: "Tiramisu",
         price: 11.99,
@@ -153,8 +153,8 @@
         servingSize: "1 portion (100g)",
         preparationTime: "6 hours (including chill time)",
         difficulty: "Medium"
-        },
-        {
+    },
+    {
         id: 4,
         name: "Ice Cream Sundae",
         price: 8.99,
@@ -183,8 +183,8 @@
         servingSize: "1 sundae (250g)",
         preparationTime: "10 minutes",
         difficulty: "Easy"
-        },
-        {
+    },
+    {
         id: 5,
         name: "Apple Pie",
         price: 10.99,
@@ -213,8 +213,8 @@
         servingSize: "1 slice (140g)",
         preparationTime: "1.5 hours",
         difficulty: "Medium"
-        },
-        {
+    },
+    {
         id: 6,
         name: "Chocolate Brownie",
         price: 7.99,
@@ -243,9 +243,117 @@
         servingSize: "1 brownie (110g)",
         preparationTime: "45 minutes",
         difficulty: "Easy"
-        }
-    ];
-
+    },
+    {
+        id: 7,
+        name: "Crème Brûlée",
+        price: 13.49,
+        image: "/images/SliderGallery/bread7.png",
+        description: "Delight in the elegance of our Crème Brûlée, featuring a creamy custard base topped with a perfectly caramelized sugar crust.",
+        ingredients: [
+            "Heavy cream",
+            "Egg yolks",
+            "Granulated sugar",
+            "Pure vanilla bean",
+            "Salt",
+            "Brown sugar (for topping)"
+        ],
+        nutritionalInfo: {
+            calories: "300 kcal",
+            fat: "20g",
+            carbs: "28g",
+            protein: "5g",
+            sugar: "24g"
+        },
+        allergens: ["Dairy", "Eggs"],
+        servingSize: "1 ramekin (100g)",
+        preparationTime: "1 hour (plus chill time)",
+        difficulty: "Medium"
+    },
+    {
+        id: 8,
+        name: "Panna Cotta",
+        price: 9.49,
+        image: "/images/SliderGallery/bread8.png",
+        description: "Smooth and silky Italian Panna Cotta, lightly sweetened and paired with a fresh berry coulis.",
+        ingredients: [
+            "Heavy cream",
+            "Whole milk",
+            "Gelatin sheets",
+            "Granulated sugar",
+            "Vanilla extract",
+            "Mixed berries",
+            "Lemon zest"
+        ],
+        nutritionalInfo: {
+            calories: "280 kcal",
+            fat: "18g",
+            carbs: "24g",
+            protein: "4g",
+            sugar: "20g"
+        },
+        allergens: ["Dairy", "Gelatin"],
+        servingSize: "1 cup (90g)",
+        preparationTime: "4 hours (chill time included)",
+        difficulty: "Easy"
+    },
+    {
+        id: 9,
+        name: "Red Velvet Cupcake",
+        price: 5.99,
+        image: "/images/SliderGallery/bread4.png",
+        description: "A soft and moist Red Velvet Cupcake topped with luscious cream cheese frosting.",
+        ingredients: [
+            "All-purpose flour",
+            "Cocoa powder",
+            "Buttermilk",
+            "Granulated sugar",
+            "Unsalted butter",
+            "Eggs",
+            "Red food coloring",
+            "Cream cheese",
+            "Powdered sugar",
+            "Vanilla extract"
+        ],
+        nutritionalInfo: {
+            calories: "350 kcal",
+            fat: "18g",
+            carbs: "44g",
+            protein: "5g",
+            sugar: "32g"
+        },
+        allergens: ["Dairy", "Eggs", "Gluten"],
+        servingSize: "1 cupcake (100g)",
+        preparationTime: "40 minutes",
+        difficulty: "Easy"
+    },
+    {
+        id: 10,
+        name: "Mango Sticky Rice",
+        price: 8.49,
+        image: "/images/SliderGallery/bread1.png",
+        description: "A Thai classic featuring sweet sticky rice, fresh ripe mango, and coconut cream drizzle.",
+        ingredients: [
+            "Glutinous rice",
+            "Fresh mango slices",
+            "Coconut milk",
+            "Palm sugar",
+            "Salt",
+            "Toasted sesame seeds"
+        ],
+        nutritionalInfo: {
+            calories: "360 kcal",
+            fat: "10g",
+            carbs: "65g",
+            protein: "6g",
+            sugar: "25g"
+        },
+        allergens: ["Coconut"],
+        servingSize: "1 plate (150g)",
+        preparationTime: "1 hour",
+        difficulty: "Easy"
+    }
+];
     const [customerDetails, setCustomerDetails] = useState<CustomerDetails>({
         name: '',
         email: '',

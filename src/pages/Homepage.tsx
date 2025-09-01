@@ -1,7 +1,7 @@
-    import React, { useState } from 'react';
+    import React, { useState, useEffect } from 'react';
     import { Menu, X } from "lucide-react";
     import { FaHome, FaUtensils, FaEnvelope, FaInfoCircle, FaFacebook, FaTwitter, FaInstagram, FaClock, FaBullhorn, FaImage } from 'react-icons/fa';
-    import { motion } from "framer-motion";
+    import { motion, useInView } from "framer-motion";
 
     // Type definitions
     interface CoffeeProduct {
@@ -17,6 +17,54 @@
     children: React.ReactNode;
     onClick: () => void;
     }
+
+    // Animation variants
+    const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.8, ease: "easeOut" }
+    }
+    };
+
+    const fadeInLeft = {
+    hidden: { opacity: 0, x: -60 },
+    visible: { 
+        opacity: 1, 
+        x: 0,
+        transition: { duration: 0.8, ease: "easeOut" }
+    }
+    };
+
+    const fadeInRight = {
+    hidden: { opacity: 0, x: 60 },
+    visible: { 
+        opacity: 1, 
+        x: 0,
+        transition: { duration: 0.8, ease: "easeOut" }
+    }
+    };
+
+    const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+        }
+    }
+    };
+
+    const staggerItem = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" }
+    }
+    };
 
     const Homepage: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -150,11 +198,18 @@
         </li>
     );
 
-    // Smooth scroll function
+    // Smooth scroll function with offset for fixed header
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const headerOffset = 80;
+        const elementPosition = element.offsetTop;
+        const offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
         }
     };
 
@@ -225,78 +280,132 @@
             background-repeat: no-repeat;
             min-height: calc(100vh - 80px);
             }
+
+            /* Smooth scrolling for the entire page */
+            html {
+            scroll-behavior: smooth;
+            }
         `}</style>
 
         {/* Header Navigation */}
-        <header className="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-[#f8f8f8] backdrop-blur-sm">
+        <motion.header 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-[#f8f8f8] backdrop-blur-sm"
+        >
             <div className="container mx-auto flex items-center justify-between">
             {/* Navigation Menu - Left Side */}
             <nav className="flex items-center space-x-8">
-                <button
+                <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('menu')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
                 >
                 <FaUtensils className="mr-2" />
                 Menu
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('gallery')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
                 >
                 <FaImage className="mr-2" />
                 Gallery
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('about')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
                 >
                 <FaInfoCircle className="mr-2" />
                 About Us
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('contact')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#5a5221]"
+                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
                 >
                 <FaEnvelope className="mr-2" />
                 Contact
-                </button>
+                </motion.button>
             </nav>
             </div>
-        </header>
+        </motion.header>
 
         {/* Hero Section with background */}
         <div className="main-background relative">
             <section id="home" className="w-full px-6 py-16 pt-32 relative z-10">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="text-center md:text-left">
-                <img
-                    src="./images/Gallery3/animecafe-v2.png"
+                <motion.div 
+                initial="hidden"
+                animate="visible"
+                variants={fadeInLeft}
+                className="text-center md:text-left"
+                >
+                <motion.img
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    src="./images/Gallery3/mingming-v3.png"
                     alt="Coffee Logo"
                     className="mx-auto md:mx-0 mb-0 w-60 h-60 object-contain"
                 />
-                <h2 className="text-6xl font-bold leading-tight -mt-2 text-white">
+                <motion.h2 
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="text-6xl font-bold leading-tight -mt-2 text-white"
+                >
                     Take A Break<br />
                     Have The Best Coffee
-                </h2>
+                </motion.h2>
 
                 {/* Coffee Quote */}
-                <p className="mt-4 text-lg italic text-white">
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="mt-4 text-lg italic text-white"
+                >
                     "Every cup of coffee is more than a drink — it's a moment to pause and enjoy.  
                     At Brew-Coffee, we craft each blend with care and passion.  
                     Because the best breaks deserve the best brew."
-                </p>
+                </motion.p>
 
                 {/* Author */}
-                <p className="mt-2 text-md font-semibold text-white">
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="mt-2 text-md font-semibold text-white"
+                >
                     — Philip Elbambo
-                </p>
-                <a href="/OrderNow" className="inline-block">
+                </motion.p>
+                <motion.a 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="/OrderNow" 
+                    className="inline-block"
+                >
                     <button className="rounded-lg px-6 py-3 text-xl font-extrabold tracking-wide uppercase shadow-md transition-all mt-6 bg-white text-black hover:bg-[#4B352A] hover:text-white">
                     Shop Now
                     </button>
-                </a>
-                </div>
-                <div className="flex justify-center relative">
+                </motion.a>
+                </motion.div>
+                <motion.div 
+                initial="hidden"
+                animate="visible"
+                variants={fadeInRight}
+                className="flex justify-center relative"
+                >
                 <div className="relative w-[600px] h-[600px] flex items-center justify-center">
                     <div className="carousel-3d">
                     <img
@@ -306,7 +415,7 @@
                     />
                     </div>
                 </div>
-                </div>
+                </motion.div>
             </div>
             </section>
         </div>
@@ -314,16 +423,24 @@
         {/* Rest of content with original background */}
         <div className="text-[#4B352A] bg-white">
             {/* Coffee Menu */}
-            <section id="menu" className="w-full px-6 py-16 relative z-10">
-            <h3 className="text-4xl font-bold text-center mb-6 text-[#4B352A]">
+            <motion.section 
+            id="menu" 
+            className="w-full px-6 py-16 relative z-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            >
+            <motion.h3 
+                variants={fadeInUp}
+                className="text-4xl font-bold text-center mb-6 text-[#4B352A]"
+            >
                 Our Coffee
-            </h3>
+            </motion.h3>
 
             {/* Full-width description with fade-in + stylish font */}
             <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
+                variants={fadeInUp}
                 className="text-lg md:text-xl font-semibold tracking-wide text-center mb-12 w-full font-serif text-[#4B352A]"
             >
                 At BrewMaster, every cup is crafted to bring warmth and comfort. 
@@ -332,11 +449,16 @@
                 and the perfect aroma in every sip.
             </motion.p>
             
-            <div className="grid md:grid-cols-4 gap-8">
+            <motion.div 
+                variants={staggerContainer}
+                className="grid md:grid-cols-4 gap-8"
+            >
                 {coffeeProducts.map((coffee: CoffeeProduct) => (
-                <div
+                <motion.div
                     key={coffee.id}
-                    className="text-center rounded-lg border border-white hover:bg-[#4B352A] hover:text-white text-[#4B352A] bg-white p-6 transition-colors group"
+                    variants={staggerItem}
+                    whileHover={{ scale: 1.05, y: -10 }}
+                    className="text-center rounded-lg border border-white hover:bg-[#4B352A] hover:text-white text-[#4B352A] bg-white p-6 transition-colors group shadow-lg"
                 >
                     <img
                     src={coffee.image}
@@ -347,25 +469,35 @@
                     <p className="text-sm leading-relaxed" style={{ color: '#000000' }}>
                     {coffee.description}
                     </p>
-                </div>
+                </motion.div>
                 ))}
-            </div>
-            </section>
+            </motion.div>
+            </motion.section>
 
             {/* About Us */}
-            <section id="about" className="w-full px-20 py-16 relative z-10">
+            <motion.section 
+            id="about" 
+            className="w-full px-20 py-16 relative z-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            >
             <div className="grid md:grid-cols-2 gap-4 items-center">
                 {/* Image Section */}
-                <div className="flex justify-center md:justify-start">
+                <motion.div 
+                variants={fadeInLeft}
+                className="flex justify-center md:justify-start"
+                >
                 <img
                     src="./images/Gallery3/CoffeeP.png"
                     alt="Coffee Shop Interior"
                     className="w-[500px] h-[500px] object-contain"
                 />
-                </div>
+                </motion.div>
 
                 {/* Text Section */}
-                <div>
+                <motion.div variants={fadeInRight}>
                 <h3 className="text-4xl font-bold mb-6 text-[#4B352A]">
                     About Us
                 </h3>
@@ -385,19 +517,31 @@
                     <li>• Coffee roasted fresh every morning, never yesterday's batch.</li>
                     <li>• A commitment to people and planet, from seed to sip.</li>
                 </ul>
-                </div>
+                </motion.div>
             </div>
-            </section>
+            </motion.section>
                 
             {/* Desserts */}
-            <section className="w-full px-6 py-16 relative z-10 bg-white">
-            <h3 className="text-4xl font-bold text-center mb-8 text-[#4B352A]">
+            <motion.section 
+            className="w-full px-6 py-16 relative z-10 bg-white"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            >
+            <motion.h3 
+                variants={fadeInUp}
+                className="text-4xl font-bold text-center mb-8 text-[#4B352A]"
+            >
                 Sweet Treats
-            </h3>
+            </motion.h3>
 
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Left Side: Quotes/Description */}
-                <div className="space-y-6 text-lg leading-relaxed">
+                <motion.div 
+                variants={fadeInLeft}
+                className="space-y-6 text-lg leading-relaxed"
+                >
                 <p className="text-[#4B352A]">
                     "Life is short, eat dessert first," and when you taste ours, you'll
                     never forget the name — <span className="font-semibold">Philip Elbambo</span>.
@@ -418,10 +562,13 @@
                     Because "dessert is the fairy tale of the kitchen," and in every story
                     worth telling, the name <span className="font-semibold">Philip Elbambo</span> lingers like the perfect sweet ending.
                 </p>
-                </div>
+                </motion.div>
 
                 {/* Right Side: Large PNG + Order CTA */}
-                <div className="flex flex-col items-center text-center">
+                <motion.div 
+                variants={fadeInRight}
+                className="flex flex-col items-center text-center"
+                >
                 {/* Dessert Showcase Picture */}
                 <img
                     src="./images/SliderGallery/bread1.png"
@@ -433,18 +580,27 @@
                 <h4 className="text-2xl font-bold mb-4 text-[#4B352A]">
                     Order Your Favorite Dessert
                 </h4>
-                <a
+                <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href="/dessert"
-                    className="px-6 py-3 rounded-xl font-semibold transition-colors bg-[#4B352A] text-white hover:bg-lime-900"
+                    className="px-6 py-3 rounded-lg font-semibold transition-colors bg-[#4B352A] text-white hover:bg-[#4B352A]"
                 >
                     Order Now
-                </a>
-                </div>
+                </motion.a>
+                </motion.div>
             </div>
-            </section>
+            </motion.section>
             
             {/* Our Gallery */}
-            <section id="gallery" className="py-16 overflow-hidden relative z-10">
+            <motion.section 
+            id="gallery" 
+            className="py-16 overflow-hidden relative z-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            >
             <div className="container mx-auto px-4 mb-12">
                 <h3 className="text-4xl font-bold text-center text-[#4B352A]">Our Gallery</h3>
             </div>
@@ -471,11 +627,18 @@
                 </div>
                 ))}
             </div>
-            </section>
+            </motion.section>
         </div>
 
         {/* Footer - separate from background */}
-        <footer id="contact" className="py-12 relative z-10 bg-[#4B352A] text-white">
+        <motion.footer 
+            id="contact" 
+            className="py-12 relative z-10 bg-[#4B352A] text-white"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+        >
             <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-8">
                 <div className="flex items-start space-x-6">
@@ -521,15 +684,27 @@
                     <span>Follow Us</span>
                 </h4>
                 <div className="flex space-x-4 text-white">
-                    <a href="https://facebook.com" aria-label="Facebook">
+                    <motion.a 
+                    whileHover={{ scale: 1.2 }}
+                    href="https://facebook.com" 
+                    aria-label="Facebook"
+                    >
                     <FaFacebook size={24} />
-                    </a>
-                    <a href="https://twitter.com" aria-label="Twitter">
+                    </motion.a>
+                    <motion.a 
+                    whileHover={{ scale: 1.2 }}
+                    href="https://twitter.com" 
+                    aria-label="Twitter"
+                    >
                     <FaTwitter size={24} />
-                    </a>
-                    <a href="https://instagram.com" aria-label="Instagram">
+                    </motion.a>
+                    <motion.a 
+                    whileHover={{ scale: 1.2 }}
+                    href="https://instagram.com" 
+                    aria-label="Instagram"
+                    >
                     <FaInstagram size={24} />
-                    </a>
+                    </motion.a>
                 </div>
                 </div>
             </div>
@@ -537,7 +712,7 @@
                 <p>&copy; 2025 Brew-Coffee Shop. Build by: PhilipElbambo.</p>
             </div>
             </div>
-        </footer>
+        </motion.footer>
         </div>
     );
     };
