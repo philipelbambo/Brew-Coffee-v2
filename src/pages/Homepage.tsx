@@ -351,7 +351,7 @@
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    src="./images/Gallery3/mingming-v3.png"
+                    src="./images/Gallery3/mingming-v2.png"
                     alt="Coffee Logo"
                     className="mx-auto md:mx-0 mb-0 w-60 h-60 object-contain"
                 />
@@ -641,13 +641,13 @@
         >
             <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-8">
-                <div className="flex items-start space-x-6">
+                <div className="flex items-start space-x-40"> {/* BIG distance */}
                 <img
                     src="./images/Gallery1/cup-of-coffee.png"
                     alt="Coffee Shop Logo"
                     className="w-20 h-20"
                 />
-                <div className="ml-32">
+                <div>
                     <h4 className="text-xl font-bold mb-4 flex items-center space-x-2 text-white">
                     <FaClock />
                     <span>Opening Hours</span>
@@ -668,6 +668,7 @@
                     </ul>
                 </div>
                 </div>
+
                 <div className="flex flex-col items-center text-center">
                 <h4 className="text-xl font-bold mb-4 flex items-center space-x-2 text-white">
                     <FaInfoCircle />

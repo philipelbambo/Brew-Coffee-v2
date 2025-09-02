@@ -755,7 +755,7 @@
                     className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500 flex items-center"
                     >
                     {loading ? <Loader className="h-4 w-4 mr-2 animate-spin" /> : 'Yes'}
-                    {loading ? 'Signing out...' : 'Yes'}
+                    {loading ? 'Signing out...' : ''}
                     </button>
                 </div>
                 </div>
