@@ -21,7 +21,7 @@ import Login from './layouts/Login';
 import About from './pages/About';
 import Homepage from './pages/Homepage';
 import BrewCoffeeOrderSystem from './components/BrewCoffeeOrderSystem';
-import DessertOrderingSystem from "./pages/OrderingDesert";
+import DessertOrderingSystem from "./layouts/DessertOrderingSystem";
 import RiderDashboard from "./pages/RiderDashboard";
 import NotFound from './pages/NotFound';
 import ProductInventory from './components/inventory/ProductInventory';
@@ -52,7 +52,7 @@ function App() {
               
             <Route path ="/" element={<Homepage />} />
             <Route path ="/BrewCoffeeOrderSystem" element={<BrewCoffeeOrderSystem />} />
-            <Route path ="/dessert" element={<DessertOrderingSystem />} />
+            <Route path ="/DessertOrderingSystem" element={<DessertOrderingSystem />} />
             <Route path ="/login" element={<Login />} />
             <Route path ="/RiderDashboard" element={<RiderDashboard />} />
             {/* 404 Route */}

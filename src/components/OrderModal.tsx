@@ -10,6 +10,7 @@
     CreditCard,
     Smartphone,
     Truck,
+    ArrowLeft,
     } from 'lucide-react';
     import { toast } from 'react-toastify';
     import 'react-toastify/dist/ReactToastify.css';
@@ -231,7 +232,15 @@
         {isOrderingNow && (
             <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-                <h3 className="text-2xl font-bold mb-4">Customize Your Order</h3>
+                <div className="flex items-center mb-4">
+                <button
+                    onClick={() => setIsOrderingNow(false)}
+                    className="hover:bg-gray-100 p-2 rounded-full transition-colors mr-3"
+                >
+                    <ArrowLeft className="w-5 h-5" />
+                </button>
+                <h3 className="text-2xl font-bold">Customize Your Order</h3>
+                </div>
                 <p className="text-gray-600 mb-6">
                 Would you like to add desserts to your {(isOrderingNow as CoffeeProduct).name}?
                 </p>
@@ -680,4 +689,4 @@
         )}
         </>
     );
-    };
+    };  
