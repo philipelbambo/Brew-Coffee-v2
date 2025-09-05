@@ -1,8 +1,8 @@
     import React, { useState, useEffect } from 'react';
     import { Menu, X } from "lucide-react";
-    import { FaHome, FaUtensils, FaEnvelope, FaInfoCircle, FaFacebook, FaTwitter, FaInstagram, FaClock, FaBullhorn, FaImage } from 'react-icons/fa';
     import { motion, useInView } from "framer-motion";
-
+    import Footer from './Footer';
+    import Header from './Header';
     // Type definitions
     interface CoffeeProduct {
     id: number;
@@ -287,55 +287,7 @@
             }
         `}</style>
 
-        {/* Header Navigation */}
-        <motion.header 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="fixed top-0 left-0 w-full z-50 py-4 px-6 bg-[#f8f8f8] backdrop-blur-sm"
-        >
-            <div className="container mx-auto flex items-center justify-between">
-            {/* Navigation Menu - Left Side */}
-            <nav className="flex items-center space-x-8">
-                <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('menu')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
-                >
-                <FaUtensils className="mr-2" />
-                Menu
-                </motion.button>
-                <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('gallery')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
-                >
-                <FaImage className="mr-2" />
-                Gallery
-                </motion.button>
-                <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('about')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
-                >
-                <FaInfoCircle className="mr-2" />
-                About Us
-                </motion.button>
-                <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('contact')}
-                className="flex items-center text-lg font-semibold transition-colors hover:scale-105 transform text-black hover:text-[#4B352A]"
-                >
-                <FaEnvelope className="mr-2" />
-                Contact
-                </motion.button>
-            </nav>
-            </div>
-        </motion.header>
+    <Header/>
 
         {/* Hero Section with background */}
         <div className="main-background relative">
@@ -351,7 +303,7 @@
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    src="./images/Gallery3/mingming-v2.png"
+                    src="./images/Gallery3/animecafe.png"
                     alt="Coffee Logo"
                     className="mx-auto md:mx-0 mb-0 w-60 h-60 object-contain"
                 />
@@ -392,7 +344,7 @@
                     transition={{ duration: 0.8, delay: 0.6 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="/OrderNow" 
+                    href="/BrewCoffeeOrderSystem" 
                     className="inline-block"
                 >
                     <button className="rounded-lg px-6 py-3 text-xl font-extrabold tracking-wide uppercase shadow-md transition-all mt-6 bg-white text-black hover:bg-[#4B352A] hover:text-white">
@@ -629,91 +581,7 @@
             </div>
             </motion.section>
         </div>
-
-        {/* Footer - separate from background */}
-        <motion.footer 
-            id="contact" 
-            className="py-12 relative z-10 bg-[#4B352A] text-white"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-        >
-            <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-8">
-                <div className="flex items-start space-x-40"> {/* BIG distance */}
-                <img
-                    src="./images/Gallery1/cup-of-coffee.png"
-                    alt="Coffee Shop Logo"
-                    className="w-20 h-20"
-                />
-                <div>
-                    <h4 className="text-xl font-bold mb-4 flex items-center space-x-2 text-white">
-                    <FaClock />
-                    <span>Opening Hours</span>
-                    </h4>
-                    <ul className="space-y-2 text-white">
-                    <li>
-                        <p className="font-semibold">Monday - Friday:</p>
-                        <p>7:00 AM - 9:00 PM</p>
-                    </li>
-                    <li>
-                        <p className="font-semibold">Saturday:</p>
-                        <p>8:00 AM - 10:00 PM</p>
-                    </li>
-                    <li>
-                        <p className="font-semibold">Sunday:</p>
-                        <p>8:00 AM - 6:00 PM</p>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-
-                <div className="flex flex-col items-center text-center">
-                <h4 className="text-xl font-bold mb-4 flex items-center space-x-2 text-white">
-                    <FaInfoCircle />
-                    <span>Contact Information</span>
-                </h4>
-                <p className="mb-2 text-white">456 Maple Avenue</p>
-                <p className="mb-2 text-white">Vancouver, BC V5K 0A1</p>
-                <p className="mb-2 text-white">Phone: (604) 987-6543</p>
-                <p className="text-white">Email: info@brewmaster.com</p>
-                </div>
-                <div className="ml-20">
-                <h4 className="text-xl font-bold mb-4 flex items-center space-x-2 text-white">
-                    <FaBullhorn />
-                    <span>Follow Us</span>
-                </h4>
-                <div className="flex space-x-4 text-white">
-                    <motion.a 
-                    whileHover={{ scale: 1.2 }}
-                    href="https://facebook.com" 
-                    aria-label="Facebook"
-                    >
-                    <FaFacebook size={24} />
-                    </motion.a>
-                    <motion.a 
-                    whileHover={{ scale: 1.2 }}
-                    href="https://twitter.com" 
-                    aria-label="Twitter"
-                    >
-                    <FaTwitter size={24} />
-                    </motion.a>
-                    <motion.a 
-                    whileHover={{ scale: 1.2 }}
-                    href="https://instagram.com" 
-                    aria-label="Instagram"
-                    >
-                    <FaInstagram size={24} />
-                    </motion.a>
-                </div>
-                </div>
-            </div>
-            <div className="border-t mt-5 pt-5 text-center border-white text-white">
-                <p>&copy; 2025 Brew-Coffee Shop. Build by: PhilipElbambo.</p>
-            </div>
-            </div>
-        </motion.footer>
+    <Footer/>
         </div>
     );
     };

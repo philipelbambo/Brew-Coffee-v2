@@ -20,7 +20,7 @@ import Login from './layouts/Login';
 
 import About from './pages/About';
 import Homepage from './pages/Homepage';
-import OrderNow from './pages/OrderNow';
+import BrewCoffeeOrderSystem from './components/BrewCoffeeOrderSystem';
 import DessertOrderingSystem from "./pages/OrderingDesert";
 import RiderDashboard from "./pages/RiderDashboard";
 import NotFound from './pages/NotFound';
@@ -51,7 +51,7 @@ function App() {
             </Route>
               
             <Route path ="/" element={<Homepage />} />
-            <Route path ="/ordernow" element={<OrderNow />} />
+            <Route path ="/BrewCoffeeOrderSystem" element={<BrewCoffeeOrderSystem />} />
             <Route path ="/dessert" element={<DessertOrderingSystem />} />
             <Route path ="/login" element={<Login />} />
             <Route path ="/RiderDashboard" element={<RiderDashboard />} />
