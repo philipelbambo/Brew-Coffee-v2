@@ -1,6 +1,7 @@
     // DessertOrderingSystem.tsx - Main React component
     import React, { useState, useRef } from 'react';
     import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Smartphone, FileText, Upload, X, ArrowLeft } from 'lucide-react';
+
     // Import types, data, and utilities
     import { Dessert, CartItem, CustomerDetails, Order } from './Types';
     import { desserts } from './Data';
@@ -145,10 +146,13 @@
             <p className="text-xl" style={{ color: '#4B352A' }}>Satisfy your sweet tooth with our premium desserts</p>
             </div>
 
-            {/* Dessert Grid */}
+            {/* Dessert Grid - Only the boxes (cards) are widened */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
             {desserts.map(dessert => (
-                <div key={dessert.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow w-full max-w-xs">
+                <div
+                key={dessert.id}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow w-full max-w-md" // Changed from max-w-xs to max-w-md
+                >
                 <img
                     src={dessert.image}
                     alt={dessert.name}
@@ -166,14 +170,28 @@
                     </h3>
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
                     <span className="text-2xl font-bold" style={{ color: '#4B352A' }}>₱{dessert.price}</span>
-                    <button
-                        onClick={() => addToCart(dessert)}
-                        className="text-white px-5 py-2 rounded-lg hover:opacity-80 transition-colors flex items-center gap-2 text-sm w-full sm:w-auto text-center"
+                    <div className="flex gap-2 w-full sm:w-auto">
+                        <button
+                        onClick={() => {
+                            addToCart(dessert);
+                            setShowCart(true);
+                        }}
+                        className="text-white px-4 py-2 rounded-lg hover:opacity-80 transition-colors flex items-center gap-1 text-sm flex-1 sm:flex-none"
                         style={{ backgroundColor: '#4B352A' }}
-                    >
-                        <Plus size={16} />
+                        >
+                        <Plus size={14} />
                         Add to Cart
-                    </button>
+                        </button>
+                        <button
+                        onClick={() => {
+                            setCart([{ ...dessert, quantity: 1 }]);
+                            setShowCheckout(true);
+                        }}
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1 text-sm flex-1 sm:flex-none"
+                        >
+                        🚀 Order Now
+                        </button>
+                    </div>
                     </div>
                 </div>
                 </div>
@@ -181,6 +199,7 @@
             </div>
         </main>
 
+        {/* All modals remain unchanged in width */}
         {/* Cart Modal */}
         {showCart && (
             <div className="fixed inset-0 backdrop-blur-md bg-white/30 z-50 flex items-center justify-center p-4">
@@ -330,15 +349,25 @@
                         addToCart(selectedDessert);
                         closeDessertModal();
                         }}
-                        className="flex-1 text-white px-6 py-3 rounded-lg hover:opacity-80 transition-colors flex items-center justify-center gap-2"
+                        className="flex-1 text-white px-5 py-3 rounded-lg hover:opacity-80 transition-colors flex items-center justify-center gap-2"
                         style={{ backgroundColor: '#4B352A' }}
                     >
                         <Plus size={16} />
                         Add to Cart
                     </button>
                     <button
+                        onClick={() => {
+                        setCart([{ ...selectedDessert, quantity: 1 }]);
+                        closeDessertModal();
+                        setShowCheckout(true);
+                        }}
+                        className="flex-1 bg-green-600 text-white px-5 py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                    >
+                        🚀 Order Now
+                    </button>
+                    <button
                         onClick={closeDessertModal}
-                        className="flex-1 border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+                        className="flex-1 border border-gray-300 px-5 py-3 rounded-lg hover:bg-gray-50 transition-colors"
                     >
                         Close
                     </button>
@@ -368,7 +397,7 @@
                         type="text"
                         placeholder="Full Name"
                         value={customerDetails.name}
-                        onChange={(e) => setCustomerDetails({...customerDetails, name: e.target.value})}
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, name: e.target.value })}
                         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brown-500"
                         style={{ borderColor: '#4B352A' }}
                         />
@@ -376,7 +405,7 @@
                         type="email"
                         placeholder="Email"
                         value={customerDetails.email}
-                        onChange={(e) => setCustomerDetails({...customerDetails, email: e.target.value})}
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, email: e.target.value })}
                         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brown-500"
                         style={{ borderColor: '#4B352A' }}
                         />
@@ -384,14 +413,14 @@
                         type="tel"
                         placeholder="Phone Number"
                         value={customerDetails.phone}
-                        onChange={(e) => setCustomerDetails({...customerDetails, phone: e.target.value})}
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, phone: e.target.value })}
                         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brown-500"
                         style={{ borderColor: '#4B352A' }}
                         />
                         <textarea
                         placeholder="Delivery Address"
                         value={customerDetails.address}
-                        onChange={(e) => setCustomerDetails({...customerDetails, address: e.target.value})}
+                        onChange={(e) => setCustomerDetails({ ...customerDetails, address: e.target.value })}
                         className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brown-500"
                         style={{ borderColor: '#4B352A' }}
                         rows={3}
@@ -504,7 +533,6 @@
                         <p style={{ color: '#4B352A' }}><strong>Address:</strong> {orderDetails.customer.address}</p>
                     </div>
                     </div>
-
                     <div className="border-b pb-4">
                     <h3 className="font-bold mb-3" style={{ color: '#4B352A' }}>Payment</h3>
                     {orderDetails.paymentScreenshot ? (
@@ -516,7 +544,6 @@
                     <div className="flex flex-col sm:flex-row gap-3 mt-6">
                     <button
                         onClick={() => printReceipt()}
-
                         className="flex-1 text-white px-6 py-3 rounded-lg hover:opacity-80 transition-colors flex items-center justify-center gap-2"
                         style={{ backgroundColor: '#4B352A' }}
                     >
