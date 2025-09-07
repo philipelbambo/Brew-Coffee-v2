@@ -126,6 +126,7 @@
     const [chatMessage, setChatMessage] = useState('');
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [isAdminChatOpen, setIsAdminChatOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Mobile toggle
 
     // Admin chat messages
     const [adminChat, setAdminChat] = useState<AdminMessage[]>([
@@ -218,8 +219,35 @@
     // === UI ===
     return (
         <div className="flex h-screen w-screen bg-white overflow-hidden text-black">
+        {/* Mobile Hamburger Toggle */}
+        <div className="md:hidden fixed top-4 left-4 z-50">
+            <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-2 bg-gray-100 rounded-md shadow-md"
+            >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={isSidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+            </svg>
+            </button>
+        </div>
+
         {/* Sidebar */}
-        <div className="w-64 bg-white shadow-lg border-r border-gray-200 flex flex-col">
+        <div
+            className={`${
+            isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            } md:translate-x-0 fixed md:static top-0 left-0 h-full w-64 bg-white shadow-lg border-r border-gray-200 flex flex-col z-40 transition-transform duration-300 ease-in-out md:z-auto`}
+        >
             <div className="p-6">
             <div className="flex items-center space-x-3">
                 <Coffee className="h-8 w-8 text-black" />
@@ -230,7 +258,10 @@
 
             <nav className="flex-1 mt-6">
             <button
-                onClick={() => setActiveTab('orders')}
+                onClick={() => {
+                setActiveTab('orders');
+                setIsSidebarOpen(false); // Close sidebar on mobile after selection
+                }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'orders' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
                 }`}
@@ -240,7 +271,10 @@
             </button>
 
             <button
-                onClick={() => setActiveTab('completed')}
+                onClick={() => {
+                setActiveTab('completed');
+                setIsSidebarOpen(false);
+                }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'completed' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
                 }`}
@@ -250,7 +284,10 @@
             </button>
 
             <button
-                onClick={() => setActiveTab('reviews')}
+                onClick={() => {
+                setActiveTab('reviews');
+                setIsSidebarOpen(false);
+                }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'reviews' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
                 }`}
@@ -260,7 +297,10 @@
             </button>
 
             <button
-                onClick={() => setActiveTab('chat')}
+                onClick={() => {
+                setActiveTab('chat');
+                setIsSidebarOpen(false);
+                }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'chat' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
                 }`}
@@ -270,7 +310,10 @@
             </button>
 
             <button
-                onClick={() => setActiveTab('profile')}
+                onClick={() => {
+                setActiveTab('profile');
+                setIsSidebarOpen(false);
+                }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'profile' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
                 }`}
@@ -286,6 +329,7 @@
                 onClick={() => {
                     setActiveTab('admin-chat');
                     setIsAdminChatOpen(true);
+                    setIsSidebarOpen(false);
                 }}
                 className={`w-full flex items-center px-4 py-2 text-left rounded hover:bg-gray-100 ${
                     activeTab === 'admin-chat'
@@ -298,7 +342,10 @@
                 </button>
 
                 <button
-                onClick={() => setActiveTab('admin')}
+                onClick={() => {
+                    setActiveTab('admin');
+                    setIsSidebarOpen(false);
+                }}
                 className={`w-full flex items-center px-4 py-2 text-left rounded hover:bg-gray-100 mt-2 ${
                     activeTab === 'admin'
                     ? 'bg-red-50 border-r-4 border-red-600 text-red-700'
@@ -356,9 +403,9 @@
             </div>
             </header>
 
-            <div className="flex flex-1 min-h-0 overflow-hidden">
+            <div className="flex flex-1 min-h-0 overflow-hidden flex-col md:flex-row">
             {/* Left Panel: Orders / Reviews / Chat / Admin */}
-            <div className="w-2/3 p-6 overflow-y-auto">
+            <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
                 {activeTab === 'orders' && (
                 <div className="space-y-4">
                     {activeOrders.length === 0 ? (
@@ -367,7 +414,7 @@
                     activeOrders.map((order) => (
                         <div
                         key={order.id}
-                        className={`bg-white rounded-lg shadow-md p-6 cursor-pointer transition-all hover:shadow-lg ${
+                        className={`bg-white rounded-lg shadow-md p-4 md:p-6 cursor-pointer transition-all hover:shadow-lg ${
                             selectedOrder?.id === order.id ? 'ring-2 ring-black' : ''
                         }`}
                         onClick={() => setSelectedOrder(order)}
@@ -378,12 +425,12 @@
                                 <Coffee className="h-6 w-6 text-black" />
                             </div>
                             <div>
-                                <h3 className="font-semibold">{order.customerName}</h3>
-                                <p className="text-sm text-gray-600">Order #{order.id}</p>
+                                <h3 className="font-semibold text-sm md:text-base">{order.customerName}</h3>
+                                <p className="text-xs md:text-sm text-gray-600">Order #{order.id}</p>
                             </div>
                             </div>
                             <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                            className={`px-2 py-1 text-xs md:px-3 md:py-1 md:text-xs font-medium rounded-full ${getStatusColor(
                                 order.status
                             )}`}
                             >
@@ -391,19 +438,19 @@
                             </span>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="flex items-center text-sm text-gray-600">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div className="flex items-center text-xs md:text-sm text-gray-600">
                             <Clock className="h-4 w-4 mr-2" />
                             {order.orderTime} → {order.estimatedDelivery}
                             </div>
-                            <div className="flex items-center text-sm text-gray-600">
+                            <div className="flex items-center text-xs md:text-sm text-gray-600">
                             <MapPin className="h-4 w-4 mr-2" />
                             {order.address.split(',')[0]}...
                             </div>
                         </div>
 
                         <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-600">
+                            <p className="text-xs md:text-sm text-gray-600">
                             {order.items.length} item(s) • ₱{order.totalAmount}
                             </p>
                             {order.status !== 'delivered' && (
@@ -413,7 +460,7 @@
                                     e.stopPropagation();
                                     updateOrderStatus(order.id, getNextStatus(order.status));
                                 }}
-                                className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 text-sm font-medium"
+                                className="px-3 py-1.5 text-xs md:px-4 md:py-2 md:text-sm bg-black text-white rounded-md hover:bg-gray-800 font-medium"
                                 >
                                 {getStatusText(order.status)}
                                 </button>
@@ -423,9 +470,9 @@
                                     setSelectedOrder(order);
                                     setShowDeclineModal(true);
                                 }}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+                                className="px-3 py-1.5 text-xs md:px-4 md:py-2 md:text-sm bg-red-600 text-white rounded-md hover:bg-red-700"
                                 >
-                                <ThumbsDown className="h-4 w-4" />
+                                <ThumbsDown className="h-3 w-3 md:h-4 md:w-4" />
                                 </button>
                             </div>
                             )}
@@ -440,13 +487,13 @@
                 <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Customer Reviews</h3>
                     {mockReviews.map((rev, i) => (
-                    <div key={i} className="bg-white p-4 rounded-lg shadow border">
+                    <div key={i} className="bg-white p-3 md:p-4 rounded-lg shadow border">
                         <div className="flex items-center mb-2">
                         <Star className="h-4 w-4 text-yellow-400 fill-current mr-1" />
-                        <span className="font-medium">{rev.rating}.0</span>
-                        <span className="text-gray-500 ml-2">by {rev.customerName}</span>
+                        <span className="font-medium text-sm">{rev.rating}.0</span>
+                        <span className="text-gray-500 ml-2 text-xs">by {rev.customerName}</span>
                         </div>
-                        <p className="text-sm text-gray-700 mb-1">{rev.review}</p>
+                        <p className="text-xs md:text-sm text-gray-700 mb-1">{rev.review}</p>
                         <p className="text-xs text-gray-500">{rev.date}</p>
                     </div>
                     ))}
@@ -461,19 +508,19 @@
                     .map((order) => (
                         <div
                         key={order.id}
-                        className="bg-white p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50"
+                        className="bg-white p-3 md:p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50"
                         onClick={() => {
                             setSelectedOrder(order);
                             setIsChatOpen(true);
                         }}
                         >
                         <div className="flex justify-between">
-                            <h4 className="font-medium">{order.customerName}</h4>
+                            <h4 className="font-medium text-sm">{order.customerName}</h4>
                             <span className="text-xs text-gray-500">
                             {order.chat[order.chat.length - 1]?.timestamp}
                             </span>
                         </div>
-                        <p className="text-sm text-gray-600 truncate">
+                        <p className="text-xs md:text-sm text-gray-600 truncate">
                             {order.chat[order.chat.length - 1]?.message}
                         </p>
                         </div>
@@ -482,13 +529,13 @@
                 )}
 
                 {activeTab === 'admin' && (
-                <div className="bg-red-50 p-6 rounded-lg border border-red-200">
+                <div className="bg-red-50 p-4 md:p-6 rounded-lg border border-red-200">
                     <h3 className="text-lg font-semibold text-red-800 flex items-center">
                     <AlertCircle className="h-5 w-5 mr-2" />
                     Admin Panel (Demo)
                     </h3>
-                    <p className="text-red-700 mt-2">This is a demo admin section.</p>
-                    <ul className="list-disc list-inside mt-2 text-sm text-red-600">
+                    <p className="text-red-700 mt-2 text-sm">This is a demo admin section.</p>
+                    <ul className="list-disc list-inside mt-2 text-xs md:text-sm text-red-600">
                     <li>View all orders</li>
                     <li>Manage riders</li>
                     <li>Customer support</li>
@@ -499,19 +546,19 @@
                 {activeTab === 'admin-chat' && (
                 <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Admin Support</h3>
-                    <div className="bg-gray-100 p-3 rounded-lg text-sm text-gray-700">
+                    <div className="bg-gray-100 p-3 rounded-lg text-xs md:text-sm text-gray-700">
                     <p>Need help with orders, payments, or issues? Message the admin here.</p>
                     </div>
                     <div
-                    className="bg-white p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50 flex items-center"
+                    className="bg-white p-3 md:p-4 rounded-lg shadow cursor-pointer hover:bg-gray-50 flex items-center"
                     onClick={() => setIsAdminChatOpen(true)}
                     >
                     <div className="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center">
                         <Shield className="h-5 w-5 text-white" />
                     </div>
                     <div className="ml-3">
-                        <h4 className="font-medium">Admin Support Team</h4>
-                        <p className="text-sm text-gray-600 truncate">
+                        <h4 className="font-medium text-sm">Admin Support Team</h4>
+                        <p className="text-xs text-gray-600 truncate">
                         {adminChat[adminChat.length - 1]?.message}
                         </p>
                     </div>
@@ -523,54 +570,54 @@
                 )}
 
                 {activeTab === 'profile' && (
-                <div className="max-w-2xl">
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                    <div className="flex items-center space-x-4 mb-6">
+                <div className="max-w-2xl mx-auto">
+                    <div className="bg-white rounded-lg shadow-md p-4 md:p-6">
+                    <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 mb-6">
                         <div className="h-20 w-20 bg-black rounded-full flex items-center justify-center">
                         <User className="h-10 w-10 text-white" />
                         </div>
-                        <div>
+                        <div className="text-center md:text-left">
                         <h3 className="text-xl font-semibold">Mike Johnson</h3>
                         <p className="text-gray-600">Rider ID: RID-001</p>
-                        <div className="flex items-center mt-1">
+                        <div className="flex items-center justify-center md:justify-start mt-1">
                             <Star className="h-4 w-4 text-yellow-400 fill-current" />
                             <span className="text-sm font-medium ml-1">4.8 Rating</span>
                             <span className="text-sm text-gray-500 ml-2">(127 reviews)</span>
                         </div>
                         </div>
                     </div>
-                    <p className="text-gray-700">Phone: +63 912 345 6789</p>
-                    <p className="text-gray-700 mt-1">Vehicle: Motorcycle (ABC-123)</p>
-                    <p className="text-gray-700 mt-2">Shift: 8:00 AM - 5:00 PM</p>
+                    <p className="text-gray-700 text-sm">Phone: +63 912 345 6789</p>
+                    <p className="text-gray-700 mt-1 text-sm">Vehicle: Motorcycle (ABC-123)</p>
+                    <p className="text-gray-700 mt-2 text-sm">Shift: 8:00 AM - 5:00 PM</p>
                     </div>
                 </div>
                 )}
             </div>
 
             {/* Right Panel: Order Details / Chat / Admin Chat */}
-            <div className="w-1/3 bg-white border-l p-6 overflow-y-auto">
+            <div className="w-full md:w-1/3 bg-white border-l p-4 md:p-6 overflow-y-auto">
                 {activeTab === 'orders' && selectedOrder && (
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Order Details</h3>
                     <div className="mb-6">
-                    <h4 className="font-medium mb-2">Customer</h4>
-                    <p>{selectedOrder.customerName}</p>
-                    <p className="text-sm text-gray-600">{selectedOrder.customerPhone}</p>
+                    <h4 className="font-medium mb-2 text-sm">Customer</h4>
+                    <p className="text-sm">{selectedOrder.customerName}</p>
+                    <p className="text-xs text-gray-600">{selectedOrder.customerPhone}</p>
                     </div>
 
                     <div className="mb-6">
-                    <h4 className="font-medium mb-2">Address</h4>
+                    <h4 className="font-medium mb-2 text-sm">Address</h4>
                     <p className="text-sm">{selectedOrder.address}</p>
                     </div>
 
                     <div className="mb-6">
-                    <h4 className="font-medium mb-3">Items</h4>
+                    <h4 className="font-medium mb-3 text-sm">Items</h4>
                     {selectedOrder.items.map((item, i) => (
                         <p key={i} className="text-sm">
                         {item.quantity}x {item.name} - ₱{item.price * item.quantity}
                         </p>
                     ))}
-                    <p className="font-bold mt-2">Total: ₱{selectedOrder.totalAmount}</p>
+                    <p className="font-bold mt-2 text-sm">Total: ₱{selectedOrder.totalAmount}</p>
                     </div>
 
                     {selectedOrder.status !== 'delivered' && selectedOrder.status !== 'declined' && (
@@ -579,13 +626,13 @@
                         onClick={() =>
                             updateOrderStatus(selectedOrder.id, getNextStatus(selectedOrder.status))
                         }
-                        className="w-full py-2 bg-black text-white rounded hover:bg-gray-800"
+                        className="w-full py-2 text-sm bg-black text-white rounded hover:bg-gray-800"
                         >
                         {getStatusText(selectedOrder.status)}
                         </button>
                         <button
                         onClick={() => setShowDeclineModal(true)}
-                        className="w-full py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                        className="w-full py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700"
                         >
                         Decline Order
                         </button>
@@ -610,8 +657,8 @@
                             msg.sender === 'rider' ? 'bg-blue-100 ml-auto' : 'bg-gray-100'
                         }`}
                         >
-                        <p className="text-sm">{msg.message}</p>
-                        <span className="text-xs text-gray-500">{msg.timestamp}</span>
+                        <p className="text-xs">{msg.message}</p>
+                        <span className="text-[10px] text-gray-500">{msg.timestamp}</span>
                         </div>
                     ))}
                     </div>
@@ -621,7 +668,7 @@
                         value={chatMessage}
                         onChange={(e) => setChatMessage(e.target.value)}
                         placeholder="Type a message..."
-                        className="flex-1 border rounded-l px-2 py-1"
+                        className="flex-1 border rounded-l px-2 py-1 text-sm"
                         onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                     />
                     <button onClick={sendMessage} className="bg-black text-white px-3 py-1 rounded-r">
@@ -648,8 +695,8 @@
                             msg.sender === 'rider' ? 'bg-blue-100 ml-auto' : 'bg-red-100'
                         }`}
                         >
-                        <p className="text-sm">{msg.message}</p>
-                        <span className="text-xs text-gray-500">{msg.timestamp}</span>
+                        <p className="text-xs">{msg.message}</p>
+                        <span className="text-[10px] text-gray-500">{msg.timestamp}</span>
                         </div>
                     ))}
                     </div>
@@ -660,7 +707,7 @@
                         value={chatMessage}
                         onChange={(e) => setChatMessage(e.target.value)}
                         placeholder="Ask the admin..."
-                        className="flex-1 border rounded-l px-2 py-1"
+                        className="flex-1 border rounded-l px-2 py-1 text-sm"
                         onKeyPress={(e) => {
                         if (e.key === 'Enter' && chatMessage.trim()) {
                             const now = new Date().toLocaleTimeString([], {
@@ -738,24 +785,24 @@
 
             {/* Modals */}
             {showSignOutModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
                 <h3 className="text-lg font-semibold mb-4">Sign out?</h3>
                 <div className="flex justify-end space-x-4">
                     <button
                     onClick={() => setShowSignOutModal(false)}
                     disabled={loading}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-black hover:bg-gray-100"
+                    className="px-4 py-2 border border-gray-300 rounded-md text-black hover:bg-gray-100 text-sm"
                     >
                     No
                     </button>
                     <button
                     onClick={handleSignOut}
                     disabled={loading}
-                    className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500 flex items-center"
+                    className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500 flex items-center text-sm"
                     >
                     {loading ? <Loader className="h-4 w-4 mr-2 animate-spin" /> : 'Yes'}
-                    {loading ? 'Signing out...' : ''}
+                    {loading && <span className="ml-2">Signing out...</span>}
                     </button>
                 </div>
                 </div>
@@ -763,26 +810,26 @@
             )}
 
             {showDeclineModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
                 <h3 className="text-lg font-semibold mb-4">Decline Order?</h3>
                 <textarea
                     value={declineReason}
                     onChange={(e) => setDeclineReason(e.target.value)}
                     placeholder="Reason for declining..."
-                    className="w-full border rounded p-2 mb-4"
+                    className="w-full border rounded p-2 mb-4 text-sm"
                     rows={3}
                 />
                 <div className="flex justify-end space-x-4">
                     <button
                     onClick={() => setShowDeclineModal(false)}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-black"
+                    className="px-4 py-2 border border-gray-300 rounded-md text-black text-sm"
                     >
                     Cancel
                     </button>
                     <button
                     onClick={declineOrder}
-                    className="px-4 py-2 bg-red-600 text-white rounded-md"
+                    className="px-4 py-2 bg-red-600 text-white rounded-md text-sm"
                     >
                     Decline
                     </button>
