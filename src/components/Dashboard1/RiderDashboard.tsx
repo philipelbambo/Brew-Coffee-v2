@@ -1,3 +1,4 @@
+    // RiderDashboard.tsx
     import React, { useState, useEffect } from 'react';
     import { useNavigate } from 'react-router-dom';
     import {
@@ -19,99 +20,16 @@
     Shield,
     } from 'lucide-react';
 
-    // === TYPES ===
-    interface Order {
-    id: string;
-    customerName: string;
-    customerPhone: string;
-    address: string;
-    items: OrderItem[];
-    status: 'pending' | 'picked_up' | 'delivering' | 'delivered' | 'declined';
-    orderTime: string;
-    totalAmount: number;
-    estimatedDelivery: string;
-    customerRating?: number;
-    review?: string;
-    chat: ChatMessage[];
-    }
+    // Import types and data from same folder
+    import { Order, ChatMessage, AdminMessage } from './types';
+    import { initialOrders, mockReviews } from './mockData';
 
-    interface OrderItem {
-    name: string;
-    quantity: number;
-    price: number;
-    notes?: string;
-    }
+    // Import components from same folder
+    import OrderCard from './OrderCard';
+    import ChatWindow from './ChatWindow';
+    import AdminChatWindow from './AdminChatWindow';
+    import { SignOutModal, DeclineModal } from './Modals';
 
-    interface ChatMessage {
-    sender: 'rider' | 'customer';
-    message: string;
-    timestamp: string;
-    }
-
-    interface CustomerReview {
-    orderId: string;
-    customerName: string;
-    rating: number;
-    review: string;
-    date: string;
-    }
-
-    interface AdminMessage {
-    sender: 'rider' | 'admin';
-    message: string;
-    timestamp: string;
-    }
-
-    // === MOCK DATA ===
-    const initialOrders: Order[] = [
-    {
-        id: 'ORD-001',
-        customerName: 'Maria Santos',
-        customerPhone: '+63 912 345 6789',
-        address: '123 Corrales Ave, Cagayan de Oro City',
-        items: [
-        { name: 'Americano', quantity: 2, price: 120 },
-        { name: 'Cappuccino', quantity: 1, price: 150 },
-        { name: 'Blueberry Muffin', quantity: 2, price: 80 },
-        ],
-        status: 'pending',
-        orderTime: '10:30 AM',
-        totalAmount: 550,
-        estimatedDelivery: '11:15 AM',
-        customerRating: 5,
-        review: 'Fast delivery and coffee was hot!',
-        chat: [
-        { sender: 'customer', message: 'Hi, please be careful with my muffins!', timestamp: '10:35 AM' },
-        { sender: 'rider', message: 'Will do, Maria! Safe and sound!', timestamp: '10:36 AM' },
-        ],
-    },
-    {
-        id: 'ORD-002',
-        customerName: 'Juan Dela Cruz',
-        customerPhone: '+63 917 234 5678',
-        address: '456 J.R. Borja St, Cagayan de Oro City',
-        items: [
-        { name: 'Iced Coffee', quantity: 1, price: 100 },
-        { name: 'Croissant', quantity: 1, price: 95 },
-        ],
-        status: 'picked_up',
-        orderTime: '10:45 AM',
-        totalAmount: 195,
-        estimatedDelivery: '11:30 AM',
-        customerRating: 4,
-        review: 'Good, but a bit delayed.',
-        chat: [],
-    },
-    ];
-
-    // === MOCK REVIEWS ===
-    const mockReviews: CustomerReview[] = [
-    { orderId: 'ORD-001', customerName: 'Maria Santos', rating: 5, review: 'Excellent service!', date: 'Today' },
-    { orderId: 'ORD-002', customerName: 'Juan Dela Cruz', rating: 4, review: 'Good, but a bit delayed.', date: 'Yesterday' },
-    { orderId: 'ORD-003', customerName: 'Anna Rodriguez', rating: 5, review: 'Perfect delivery!', date: '2 days ago' },
-    ];
-
-    // === MAIN COMPONENT ===
     const RiderDashboard: React.FC = () => {
     const navigate = useNavigate();
     const [orders, setOrders] = useState<Order[]>(initialOrders);
@@ -126,7 +44,7 @@
     const [chatMessage, setChatMessage] = useState('');
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [isAdminChatOpen, setIsAdminChatOpen] = useState(false);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Mobile toggle
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     // Admin chat messages
     const [adminChat, setAdminChat] = useState<AdminMessage[]>([
@@ -260,7 +178,7 @@
             <button
                 onClick={() => {
                 setActiveTab('orders');
-                setIsSidebarOpen(false); // Close sidebar on mobile after selection
+                setIsSidebarOpen(false);
                 }}
                 className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-100 ${
                 activeTab === 'orders' ? 'bg-gray-100 border-r-4 border-black text-black' : ''
@@ -373,22 +291,23 @@
             <div className="flex items-center justify-between">
                 <div>
                 <h2 className="text-2xl font-bold">
-                    {activeTab === 'orders' && 'Active Orders'}
-                    {activeTab === 'completed' && 'Completed Orders'}
-                    {activeTab === 'reviews' && 'Customer Reviews'}
-                    {activeTab === 'chat' && 'Messages'}
-                    {activeTab === 'profile' && 'Rider Profile'}
-                    {activeTab === 'admin' && 'Admin Panel'}
-                    {activeTab === 'admin-chat' && 'Admin Support'}
+                    {activeTab === 'orders' && <span className="ml-12">Active Orders</span>}
+                    {activeTab === 'completed' && <span className="ml-12">Completed Orders</span>}
+                    {activeTab === 'reviews' && <span className="ml-12">Customer Reviews</span>}
+                    {activeTab === 'chat' && <span className="ml-12">Messages</span>}
+                    {activeTab === 'profile' && <span className="ml-12">Rider Profile</span>}
+                    {activeTab === 'admin' && <span className="ml-12">Admin Panel</span>}
+                    {activeTab === 'admin-chat' && <span className="ml-12">Admin Support</span>}
                 </h2>
+
                 <p className="text-gray-600">
-                    {activeTab === 'orders' && 'Manage your delivery orders'}
-                    {activeTab === 'completed' && 'View your completed deliveries'}
-                    {activeTab === 'reviews' && 'See customer feedback'}
-                    {activeTab === 'chat' && 'Chat with customers'}
-                    {activeTab === 'profile' && 'Manage your profile settings'}
-                    {activeTab === 'admin' && 'Admin controls (demo)'}
-                    {activeTab === 'admin-chat' && 'Chat with support team'}
+                    {activeTab === 'orders' && <span className="ml-12">Manage your delivery orders</span>}
+                    {activeTab === 'completed' && <span className="ml-12">View your completed deliveries</span>}
+                    {activeTab === 'reviews' && <span className="ml-12">See customer feedback</span>}
+                    {activeTab === 'chat' && <span className="ml-12">Chat with customers</span>}
+                    {activeTab === 'profile' && <span className="ml-12">Manage your profile settings</span>}
+                    {activeTab === 'admin' && <span className="ml-12">Admin controls (demo)</span>}
+                    {activeTab === 'admin-chat' && <span className="ml-12">Chat with support team</span>}
                 </p>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -404,7 +323,7 @@
             </header>
 
             <div className="flex flex-1 min-h-0 overflow-hidden flex-col md:flex-row">
-            {/* Left Panel: Orders / Reviews / Chat / Admin */}
+            {/* Left Panel */}
             <div className="w-full md:w-2/3 p-4 md:p-6 overflow-y-auto">
                 {activeTab === 'orders' && (
                 <div className="space-y-4">
@@ -412,72 +331,20 @@
                     <p className="text-gray-500">No pending orders.</p>
                     ) : (
                     activeOrders.map((order) => (
-                        <div
+                        <OrderCard
                         key={order.id}
-                        className={`bg-white rounded-lg shadow-md p-4 md:p-6 cursor-pointer transition-all hover:shadow-lg ${
-                            selectedOrder?.id === order.id ? 'ring-2 ring-black' : ''
-                        }`}
-                        onClick={() => setSelectedOrder(order)}
-                        >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center space-x-3">
-                            <div className="h-12 w-12 bg-gray-100 rounded-full flex items-center justify-center">
-                                <Coffee className="h-6 w-6 text-black" />
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-sm md:text-base">{order.customerName}</h3>
-                                <p className="text-xs md:text-sm text-gray-600">Order #{order.id}</p>
-                            </div>
-                            </div>
-                            <span
-                            className={`px-2 py-1 text-xs md:px-3 md:py-1 md:text-xs font-medium rounded-full ${getStatusColor(
-                                order.status
-                            )}`}
-                            >
-                            {order.status.replace('_', ' ').toUpperCase()}
-                            </span>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div className="flex items-center text-xs md:text-sm text-gray-600">
-                            <Clock className="h-4 w-4 mr-2" />
-                            {order.orderTime} → {order.estimatedDelivery}
-                            </div>
-                            <div className="flex items-center text-xs md:text-sm text-gray-600">
-                            <MapPin className="h-4 w-4 mr-2" />
-                            {order.address.split(',')[0]}...
-                            </div>
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                            <p className="text-xs md:text-sm text-gray-600">
-                            {order.items.length} item(s) • ₱{order.totalAmount}
-                            </p>
-                            {order.status !== 'delivered' && (
-                            <div className="flex space-x-2">
-                                <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    updateOrderStatus(order.id, getNextStatus(order.status));
-                                }}
-                                className="px-3 py-1.5 text-xs md:px-4 md:py-2 md:text-sm bg-black text-white rounded-md hover:bg-gray-800 font-medium"
-                                >
-                                {getStatusText(order.status)}
-                                </button>
-                                <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedOrder(order);
-                                    setShowDeclineModal(true);
-                                }}
-                                className="px-3 py-1.5 text-xs md:px-4 md:py-2 md:text-sm bg-red-600 text-white rounded-md hover:bg-red-700"
-                                >
-                                <ThumbsDown className="h-3 w-3 md:h-4 md:w-4" />
-                                </button>
-                            </div>
-                            )}
-                        </div>
-                        </div>
+                        order={order}
+                        selected={selectedOrder?.id === order.id}
+                        onSelect={setSelectedOrder}
+                        updateOrderStatus={updateOrderStatus}
+                        onDeclineClick={() => {
+                            setSelectedOrder(order);
+                            setShowDeclineModal(true);
+                        }}
+                        getStatusColor={getStatusColor}
+                        getNextStatus={getNextStatus}
+                        getStatusText={getStatusText}
+                        />
                     ))
                     )}
                 </div>
@@ -594,7 +461,7 @@
                 )}
             </div>
 
-            {/* Right Panel: Order Details / Chat / Admin Chat */}
+            {/* Right Panel */}
             <div className="w-full md:w-1/3 bg-white border-l p-4 md:p-6 overflow-y-auto">
                 {activeTab === 'orders' && selectedOrder && (
                 <div>
@@ -642,201 +509,43 @@
                 )}
 
                 {isChatOpen && selectedOrder && activeTab === 'chat' && (
-                <div>
-                    <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Chat with {selectedOrder.customerName}</h3>
-                    <button onClick={() => setIsChatOpen(false)}>
-                        <X className="h-5 w-5" />
-                    </button>
-                    </div>
-                    <div className="space-y-3 mb-4 h-64 overflow-y-auto">
-                    {selectedOrder.chat.map((msg, i) => (
-                        <div
-                        key={i}
-                        className={`p-2 rounded-lg max-w-xs ${
-                            msg.sender === 'rider' ? 'bg-blue-100 ml-auto' : 'bg-gray-100'
-                        }`}
-                        >
-                        <p className="text-xs">{msg.message}</p>
-                        <span className="text-[10px] text-gray-500">{msg.timestamp}</span>
-                        </div>
-                    ))}
-                    </div>
-                    <div className="flex">
-                    <input
-                        type="text"
-                        value={chatMessage}
-                        onChange={(e) => setChatMessage(e.target.value)}
-                        placeholder="Type a message..."
-                        className="flex-1 border rounded-l px-2 py-1 text-sm"
-                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                    />
-                    <button onClick={sendMessage} className="bg-black text-white px-3 py-1 rounded-r">
-                        <Send className="h-4 w-4" />
-                    </button>
-                    </div>
-                </div>
+                <ChatWindow
+                    customerName={selectedOrder.customerName}
+                    chat={selectedOrder.chat}
+                    chatMessage={chatMessage}
+                    setChatMessage={setChatMessage}
+                    sendMessage={sendMessage}
+                    onClose={() => setIsChatOpen(false)}
+                />
                 )}
 
                 {isAdminChatOpen && activeTab === 'admin-chat' && (
-                <div>
-                    <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Admin Support</h3>
-                    <button onClick={() => setIsAdminChatOpen(false)}>
-                        <X className="h-5 w-5" />
-                    </button>
-                    </div>
-
-                    <div className="space-y-3 mb-4 h-64 overflow-y-auto">
-                    {adminChat.map((msg, i) => (
-                        <div
-                        key={i}
-                        className={`p-2 rounded-lg max-w-xs ${
-                            msg.sender === 'rider' ? 'bg-blue-100 ml-auto' : 'bg-red-100'
-                        }`}
-                        >
-                        <p className="text-xs">{msg.message}</p>
-                        <span className="text-[10px] text-gray-500">{msg.timestamp}</span>
-                        </div>
-                    ))}
-                    </div>
-
-                    <div className="flex">
-                    <input
-                        type="text"
-                        value={chatMessage}
-                        onChange={(e) => setChatMessage(e.target.value)}
-                        placeholder="Ask the admin..."
-                        className="flex-1 border rounded-l px-2 py-1 text-sm"
-                        onKeyPress={(e) => {
-                        if (e.key === 'Enter' && chatMessage.trim()) {
-                            const now = new Date().toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            });
-                            const newMsg: AdminMessage = {
-                            sender: 'rider',
-                            message: chatMessage,
-                            timestamp: now,
-                            };
-
-                            setAdminChat((prev) => [...prev, newMsg]);
-
-                            // Simulate admin reply
-                            setTimeout(() => {
-                            setAdminChat((prev) => [
-                                ...prev,
-                                {
-                                sender: 'admin',
-                                message: "Thanks for your message. We'll get back to you soon!",
-                                timestamp: new Date().toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                }),
-                                },
-                            ]);
-                            }, 1000);
-
-                            setChatMessage('');
-                        }
-                        }}
-                    />
-                    <button
-                        onClick={() => {
-                        if (!chatMessage.trim()) return;
-                        const now = new Date().toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        });
-                        const newMsg: AdminMessage = {
-                            sender: 'rider',
-                            message: chatMessage,
-                            timestamp: now,
-                        };
-
-                        setAdminChat((prev) => [...prev, newMsg]);
-
-                        // Simulate auto-reply
-                        setTimeout(() => {
-                            setAdminChat((prev) => [
-                            ...prev,
-                            {
-                                sender: 'admin',
-                                message: 'Your request has been received. Support team is on it.',
-                                timestamp: new Date().toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                }),
-                            },
-                            ]);
-                        }, 1000);
-
-                        setChatMessage('');
-                        }}
-                        className="bg-black text-white px-3 py-1 rounded-r"
-                    >
-                        <Send className="h-4 w-4" />
-                    </button>
-                    </div>
-                </div>
+                <AdminChatWindow
+                    adminChat={adminChat}
+                    chatMessage={chatMessage}
+                    setChatMessage={setChatMessage}
+                    setAdminChat={setAdminChat}
+                    onClose={() => setIsAdminChatOpen(false)}
+                />
                 )}
             </div>
             </div>
 
             {/* Modals */}
-            {showSignOutModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                <h3 className="text-lg font-semibold mb-4">Sign out?</h3>
-                <div className="flex justify-end space-x-4">
-                    <button
-                    onClick={() => setShowSignOutModal(false)}
-                    disabled={loading}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-black hover:bg-gray-100 text-sm"
-                    >
-                    No
-                    </button>
-                    <button
-                    onClick={handleSignOut}
-                    disabled={loading}
-                    className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-500 flex items-center text-sm"
-                    >
-                    {loading ? <Loader className="h-4 w-4 mr-2 animate-spin" /> : 'Yes'}
-                    {loading && <span className="ml-2">Signing out...</span>}
-                    </button>
-                </div>
-                </div>
-            </div>
-            )}
+            <SignOutModal
+            show={showSignOutModal}
+            loading={loading}
+            onConfirm={handleSignOut}
+            onCancel={() => setShowSignOutModal(false)}
+            />
 
-            {showDeclineModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                <h3 className="text-lg font-semibold mb-4">Decline Order?</h3>
-                <textarea
-                    value={declineReason}
-                    onChange={(e) => setDeclineReason(e.target.value)}
-                    placeholder="Reason for declining..."
-                    className="w-full border rounded p-2 mb-4 text-sm"
-                    rows={3}
-                />
-                <div className="flex justify-end space-x-4">
-                    <button
-                    onClick={() => setShowDeclineModal(false)}
-                    className="px-4 py-2 border border-gray-300 rounded-md text-black text-sm"
-                    >
-                    Cancel
-                    </button>
-                    <button
-                    onClick={declineOrder}
-                    className="px-4 py-2 bg-red-600 text-white rounded-md text-sm"
-                    >
-                    Decline
-                    </button>
-                </div>
-                </div>
-            </div>
-            )}
+            <DeclineModal
+            show={showDeclineModal}
+            reason={declineReason}
+            setReason={setDeclineReason}
+            onConfirm={declineOrder}
+            onCancel={() => setShowDeclineModal(false)}
+            />
         </div>
         </div>
     );
