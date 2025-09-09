@@ -7,7 +7,7 @@ import { ReceiptProvider } from './context/ReceiptContext';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
-import AuthLayout from './layouts/AuthLayout';
+import AuthLayout from './components/Dessert/AuthLayout';
 
 // Pages
 import Dashboard from './pages/Dashboard';
@@ -20,8 +20,8 @@ import Login from './layouts/Login';
 
 import About from './pages/About';
 import Homepage from './pages/Homepage';
-import BrewCoffeeOrderSystem from './components/BrewCoffeeOrderSystem';
-import DessertOrderingSystem from "./layouts/DessertOrderingSystem";
+import BrewCoffeeOrderSystem from './components/Coffee/BrewCoffeeOrderSystem';
+import DessertOrderingSystem from "./components/Dessert/DessertOrderingSystem";
 import RiderDashboard from "./components/Dashboard1/RiderDashboard";
 import NotFound from './pages/NotFound';
 import ProductInventory from './components/inventory/ProductInventory';

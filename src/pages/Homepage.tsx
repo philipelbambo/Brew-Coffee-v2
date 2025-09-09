@@ -267,14 +267,14 @@
             filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
             will-change: transform;
             }
-            
+
             .slow-spin {
             animation: slowRotate 6s linear infinite;
             }
 
             /* Background image styles */
             .main-background {
-            background-image: url('/images/Gallery3/customize1.jpg');
+            background-image: url('/images/Gallery3/coffeebeans-v2.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -284,6 +284,65 @@
             /* Smooth scrolling for the entire page */
             html {
             scroll-behavior: smooth;
+            }
+
+            /* ============= MOBILE RESPONSIVENESS + UNIQUE TOUCHES ============= */
+
+            @media (max-width: 768px) {
+                /* Fluid typography */
+                .text-6xl { font-size: clamp(2rem, 8vw, 3.75rem); }
+                .text-4xl { font-size: clamp(1.5rem, 6vw, 2.25rem); }
+                .text-2xl { font-size: clamp(1.125rem, 5vw, 1.5rem); }
+                .text-xl { font-size: clamp(1rem, 4vw, 1.25rem); }
+                .text-lg { font-size: clamp(0.95rem, 4vw, 1.125rem); }
+
+                /* Stack hero content */
+                #home .grid { grid-template-columns: 1fr !important; text-align: center !important; }
+                #home .justify-center { justify-content: center !important; }
+                #home img { margin: 0 auto !important; }
+
+                /* Slow down carousel on mobile for drama */
+                .carousel-3d { animation-duration: 8s !important; }
+
+                /* Coffee grid: 2 per row on mobile */
+                .grid.md\\\\:grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 1rem !important; }
+                .grid.md\\\\:grid-cols-2 { grid-template-columns: 1fr !important; }
+
+                /* Reduce padding */
+                .px-6 { padding-left: 1rem !important; padding-right: 1rem !important; }
+                .px-20 { padding-left: 1rem !important; padding-right: 1rem !important; }
+                .py-16 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+
+                /* About section: stack image and text */
+                #about .grid { grid-template-columns: 1fr !important; }
+                #about img { margin: 0 auto 2rem; max-width: 80% !important; height: auto !important; }
+
+                /* Dessert section: stack content */
+                .grid.md\\\\:grid-cols-2 { grid-template-columns: 1fr !important; }
+                .flex-col.items-center { margin-top: 2rem; }
+
+                /* Gallery: single column, reduce image size */
+                .w-80 { width: 100% !important; max-width: 280px; }
+                .h-64 { height: auto !important; }
+                .h-48 { height: 200px !important; }
+                .space-x-6 { gap: 1rem !important; }
+                .space-y-6 { gap: 1.5rem !important; }
+
+                /* Menu button spacing */
+                .py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+
+                /* Button padding */
+                .px-6.py-3 { padding: 0.75rem 1.5rem !important; font-size: 1rem !important; }
+
+                /* Subtle mobile hover scale */
+                .hover\\\\:scale-105:hover { --tw-scale-x: 1.03; --tw-scale-y: 1.03; }
+            }
+
+            /* Ultra-rare micro-delight: gentle floating effect on gallery items on mobile hover/touch */
+            @media (max-width: 768px) and (hover: hover) {
+                .hover\\\\:scale-105 {
+                    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+                }
             }
         `}</style>
 
@@ -311,7 +370,7 @@
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-6xl font-bold leading-tight -mt-2 text-white"
+                    className="text-6xl font-bold leading-tight -mt-2 text-black"
                 >
                     Take A Break<br />
                     Have The Best Coffee
@@ -322,22 +381,13 @@
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="mt-4 text-lg italic text-white"
+                    className="mt-4 text-lg italic text-black"
                 >
                     "Every cup of coffee is more than a drink — it's a moment to pause and enjoy.  
                     At Brew-Coffee, we craft each blend with care and passion.  
                     Because the best breaks deserve the best brew."
                 </motion.p>
 
-                {/* Author */}
-                <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    className="mt-2 text-md font-semibold text-white"
-                >
-                    — Philip Elbambo
-                </motion.p>
                 <motion.a 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
