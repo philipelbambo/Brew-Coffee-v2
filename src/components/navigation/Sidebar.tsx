@@ -21,10 +21,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const navLinkStyle = ({ isActive }: { isActive: boolean }) => ({
-    backgroundColor: isActive ? '#E5E5E5' : 'transparent',
-    color: 'black',
-  });
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `flex items-center px-3 py-2 rounded-lg transition-colors duration-200
+     ${isActive 
+        ? 'bg-blue-50 text-blue-900 font-semibold' 
+        : 'text-blue-900 hover:bg-blue-50'}
+     ${isOpen ? 'text-[15px]' : 'justify-center'}`;
 
   const handleSignOut = () => setShowModal(true);
 
@@ -41,21 +43,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     <>
       <div 
         className={`border-r transition-all duration-300 flex flex-col justify-between 
-        ${isOpen ? 'w-60' : 'w-20'}`}
-        style={{ backgroundColor: 'white', borderColor: '#E5E5E5' }}
+        ${isOpen ? 'w-64' : 'w-20'} bg-white border-gray-200`}
       >
         {/* Top Section */}
         <div>
-          <div className="p-4 border-b flex items-center justify-center" style={{ borderColor: '#E5E5E5' }}>
+          <div className="p-4 border-b border-gray-200 flex items-center justify-center">
             <img 
-              src="/images/Gallery1/cup-of-coffee.png" 
+              src="/images/Gallery2/coffee.png" 
               alt="Logo" 
               className="h-14 w-14 object-contain" 
             />
             {isOpen && (
-              <div className="ml-2">
-                <h1 className="text-xl font-bold text-black">Brew-Coffee</h1>
-                <p className="text-xs text-black">Admin panel</p>
+              <div className="ml-3">
+                <h1 className="text-2xl font-extrabold text-blue-900 tracking-tight">Brew-Coffee</h1>
+                <p className="text-sm text-blue-700 font-medium">Admin Panel</p>
               </div>
             )}
           </div>
@@ -73,14 +74,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                 { to: "/settings", label: "Settings", icon: Settings },
                 { to: "/about", label: "About", icon: Info },
               ].map(({ to, label, icon: Icon }) => (
-                <NavLink 
-                  key={to}
-                  to={to}
-                  className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100"
-                  style={navLinkStyle}
-                >
-                  <Icon className="mr-3 h-5 w-5 text-black" />
-                  {isOpen && <span className="text-black">{label}</span>}
+                <NavLink key={to} to={to} className={navLinkClass}>
+                  <Icon className="mr-3 h-5 w-5 text-blue-900" />
+                  {isOpen && <span className="font-medium">{label}</span>}
                 </NavLink>
               ))}
             </nav>
@@ -88,13 +84,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         </div>
 
         {/* Bottom Section (Sign Out) */}
-        <div className="p-3 border-t" style={{ borderColor: '#E5E5E5' }}>
+        <div className="p-3 border-t border-gray-200">
           <button
             onClick={handleSignOut}
-            className="flex items-center w-full px-3 py-2 text-sm font-medium rounded-md text-black hover:bg-gray-100"
+            className="flex items-center w-full px-3 py-2 rounded-lg text-blue-900 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
           >
-            <LogOut className="mr-3 h-5 w-5 text-black" />
-            {isOpen && <span>Sign Out</span>}
+            <LogOut className="mr-3 h-5 w-5" />
+            {isOpen && <span className="font-medium">Sign Out</span>}
           </button>
         </div>
       </div>
@@ -102,20 +98,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       {/* Confirmation Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-80 text-center">
             {!loading ? (
               <>
-                <p className="text-lg font-semibold mb-4">Are you sure you want to sign out?</p>
+                <p className="text-lg font-semibold mb-4 text-blue-900">Are you sure you want to sign out?</p>
                 <div className="flex justify-center space-x-4">
                   <button
                     onClick={confirmSignOut}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => setShowModal(false)}
-                    className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+                    className="px-4 py-2 bg-gray-200 text-blue-900 rounded-lg hover:bg-gray-300 transition"
                   >
                     No
                   </button>
@@ -123,8 +119,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
               </>
             ) : (
               <div className="flex flex-col items-center">
-                <div className="w-8 h-8 border-4 border-gray-300 border-t-red-600 rounded-full animate-spin"></div>
-                <p className="mt-3 text-sm text-gray-600">Signing out...</p>
+                <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-900 rounded-full animate-spin"></div>
+                <p className="mt-3 text-sm font-medium text-blue-900">Signing out...</p>
               </div>
             )}
           </div>

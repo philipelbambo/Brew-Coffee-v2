@@ -126,17 +126,19 @@
             </div>
             <button
                 onClick={() => setShowCart(true)}
-                className="relative text-white p-3 rounded-full hover:opacity-80 transition-colors"
+            className="relative text-white p-3 rounded-lg hover:opacity-80 transition-colors w-20 h-10"
+
+
                 style={{ backgroundColor: '#4B352A' }}
             >
                 <ShoppingCart size={24} />
                 {calculateTotalItems(cart) > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white  text-xs rounded-full h-6 w-6 flex items-center justify-center">
                     {calculateTotalItems(cart)}
                 </span>
                 )}
             </button>
-            </div>
+            </div>  
         </header>
 
         {/* Main Content */}
@@ -187,9 +189,9 @@
                             setCart([{ ...dessert, quantity: 1 }]);
                             setShowCheckout(true);
                         }}
-                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1 text-sm flex-1 sm:flex-none"
+                        className="bg-[#84994F] text-white px-4 py-2 rounded-lg hover:bg-[#84994F] transition-colors flex items-center gap-1 text-sm flex-1 sm:flex-none"
                         >
-                        🚀 Order Now
+                            Order Now
                         </button>
                     </div>
                     </div>

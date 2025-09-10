@@ -19,7 +19,7 @@ import Inventory from './pages/Inventory';
 import Login from './layouts/Login';
 
 import About from './pages/About';
-import Homepage from './pages/Homepage';
+import BrewCoffeeHomepage from './components/Homepage/BrewCoffeeHomepage';
 import BrewCoffeeOrderSystem from './components/Coffee/BrewCoffeeOrderSystem';
 import DessertOrderingSystem from "./components/Dessert/DessertOrderingSystem";
 import RiderDashboard from "./components/Dashboard1/RiderDashboard";
@@ -50,7 +50,7 @@ function App() {
               <Route path="products" element={<ProductInventory />} />
             </Route>
               
-            <Route path ="/" element={<Homepage />} />
+            <Route path ="/" element={<BrewCoffeeHomepage />} />
             <Route path ="/BrewCoffeeOrderSystem" element={<BrewCoffeeOrderSystem />} />
             <Route path ="/DessertOrderingSystem" element={<DessertOrderingSystem />} />
             <Route path ="/login" element={<Login />} />

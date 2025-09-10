@@ -430,7 +430,7 @@
                         setIsCartOpen(false);
                         setIsCheckoutOpen(true);
                     }}
-                    className="w-full bg-[#4B352A] hover:bg-[#3a3912] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow"
+                    className="w-full bg-[#4B352A] hover:bg-[#84994F] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow"
                     >
                     Proceed to Checkout
                     </button>

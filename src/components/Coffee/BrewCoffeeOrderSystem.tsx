@@ -235,10 +235,10 @@
                 <div className="ml-auto">
                 <button
                     onClick={() => setIsCartOpen(true)}
-                    className="relative bg-[#4B352A] text-white px-6 py-3 rounded-full font-semibold flex items-center space-x-2"
+                    className="relative bg-[#4B352A] text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2"
                 >
                     <ShoppingCart className="w-5 h-5" />
-                    <span>Cart ({cart.reduce((sum, item) => sum + item.quantity + (item.desserts?.reduce((s, d) => s + d.quantity, 0) || 0), 0)})</span>
+                    <span> ({cart.reduce((sum, item) => sum + item.quantity + (item.desserts?.reduce((s, d) => s + d.quantity, 0) || 0), 0)})</span>
                     {cart.length > 0 && (
                     <div className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold animate-pulse">
                         {cart.reduce((sum, item) => sum + item.quantity + (item.desserts?.reduce((s, d) => s + d.quantity, 0) || 0), 0)}
@@ -289,7 +289,7 @@
                             e.stopPropagation();
                             addToCart(coffee);
                         }}
-                        className="flex-1 bg-gray-300 text-[#4B352A] py-2 rounded-lg font-semibold"
+                        className="flex-1 bg-[#84994F] text-white py-2 rounded-lg font-semibold"
                         >
                         Add to Cart
                         </button>
