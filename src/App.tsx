@@ -5,14 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CartProvider } from './context/CartContext';
 import { ReceiptProvider } from './context/ReceiptContext';
 
-// Layouts
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './components/Dessert/AuthLayout';
 
-// Pages
 import Dashboard from './pages/Dashboard';
 import Menu from './pages/Menu';
-import Orders from './pages/Orders';
+import BrewCoffeeOrderManagement from './components/CustomerOrders/BrewCoffeeOrderManagement';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import Inventory from './pages/Inventory';
@@ -35,26 +33,28 @@ function App() {
           <Routes>
             {/* Auth Routes */}
             <Route element={<AuthLayout />}>
-          
+              {/* You can add auth-related routes here */}
             </Route>
 
             {/* Main App Routes */}
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/menu" element={<Menu />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders" element={<BrewCoffeeOrderManagement />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/about" element={<About />} />
-              <Route path="products" element={<ProductInventory />} />
+              <Route path="/products" element={<ProductInventory />} />
             </Route>
-              
-            <Route path ="/" element={<BrewCoffeeHomepage />} />
-            <Route path ="/BrewCoffeeOrderSystem" element={<BrewCoffeeOrderSystem />} />
-            <Route path ="/DessertOrderingSystem" element={<DessertOrderingSystem />} />
-            <Route path ="/login" element={<Login />} />
+
+            {/* Public Routes */}
+            <Route path="/" element={<BrewCoffeeHomepage />} />
+            <Route path="/BrewCoffeeOrderSystem" element={<BrewCoffeeOrderSystem />} />
+            <Route path="/DessertOrderingSystem" element={<DessertOrderingSystem />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/RiderDashboard" element={<RiderDashboard />} />
+
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
           </Routes>

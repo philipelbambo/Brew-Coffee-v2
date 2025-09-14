@@ -88,7 +88,7 @@
                 key={coffee.id}
                 variants={staggerItem}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className="text-center rounded-lg border border-white hover:bg-[#4B352A] hover:text-white text-[#4B352A] bg-white p-6 transition-colors group shadow-lg"
+                className="text-center rounded-lg border border-white hover:bg-white  text-[#4B352A] bg-white p-6 transition-colors group shadow-lg"
             >
                 <img
                 src={coffee.image}
